@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
+                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="11n_picture" translatesAutoresizingMaskIntoConstraints="NO" id="TfZ-JT-kto">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hy5-bc-pRF">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="n2g-fo-sMM">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My favorite weather !" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8bF-q6-XO9">
+                                            <rect key="frame" x="165" y="260" width="271" height="80"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="80" id="0TP-Zb-isY"/>
+                                                <constraint firstAttribute="width" constant="271" id="lxC-B2-UUm"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                            <size key="shadowOffset" width="1" height="1"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="fa-star-o" translatesAutoresizingMaskIntoConstraints="NO" id="Hd7-eq-cA0">
+                                            <rect key="frame" x="73" y="43" width="240" height="128"/>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZY9-BR-Iq7">
+                                            <rect key="frame" x="0.0" y="33" width="505" height="481"/>
+                                            <state key="normal" image="fa-star"/>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="8bF-q6-XO9" firstAttribute="centerY" secondItem="n2g-fo-sMM" secondAttribute="centerY" id="2B9-bC-Y55"/>
+                                        <constraint firstItem="8bF-q6-XO9" firstAttribute="centerX" secondItem="n2g-fo-sMM" secondAttribute="centerX" id="PuO-pS-YoN"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="extraLight"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hy5-bc-pRF" firstAttribute="top" secondItem="TfZ-JT-kto" secondAttribute="top" id="OOB-Iz-XQ7"/>
+                            <constraint firstItem="hy5-bc-pRF" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="WYg-Fo-OPV"/>
+                            <constraint firstItem="hy5-bc-pRF" firstAttribute="leading" secondItem="TfZ-JT-kto" secondAttribute="leading" id="ahv-27-ZEc"/>
+                            <constraint firstAttribute="trailing" secondItem="hy5-bc-pRF" secondAttribute="trailing" id="ivw-Ci-qdw"/>
+                            <constraint firstItem="hy5-bc-pRF" firstAttribute="trailing" secondItem="TfZ-JT-kto" secondAttribute="trailing" id="pBV-d9-9UW"/>
+                            <constraint firstItem="hy5-bc-pRF" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="rQz-gW-bDY"/>
+                            <constraint firstItem="hy5-bc-pRF" firstAttribute="bottom" secondItem="xb3-aO-Qok" secondAttribute="top" id="tWV-30-ai9"/>
+                            <constraint firstItem="hy5-bc-pRF" firstAttribute="bottom" secondItem="TfZ-JT-kto" secondAttribute="bottom" id="xQs-hA-rXG"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="11n_picture" width="611" height="640"/>
+        <image name="fa-star" width="505" height="481"/>
+        <image name="fa-star-o" width="505" height="482"/>
+    </resources>
+</document>

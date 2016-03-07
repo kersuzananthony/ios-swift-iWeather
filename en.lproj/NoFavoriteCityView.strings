@@ -1,0 +1,9 @@
+
+/* Class = "UILabel"; text = "Use location button to get the weather at your current place"; ObjectID = "CKY-ne-EdF"; */
+"CKY-ne-EdF.text" = "Use \"Locate Me\" feature to get the weather at your current place";
+
+/* Class = "UILabel"; text = "Or you can also search for a specific city"; ObjectID = "Fc7-aW-Zsi"; */
+"Fc7-aW-Zsi.text" = "Or you can also search for a specific city";
+
+/* Class = "UILabel"; text = "You have not added any favorite city!"; ObjectID = "skQ-P6-FsN"; */
+"skQ-P6-FsN.text" = "You have not added any favorite city yet!";

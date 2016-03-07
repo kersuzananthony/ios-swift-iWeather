@@ -1,0 +1,93 @@
+/* 
+  Localizable.strings
+  my-favorite-weather
+
+  Created by Kersuzan on 05/01/2016.
+  Copyright © 2016 Kersuzan. All rights reserved.
+*/
+"LAST_UPDATE %@" = "Mis à jour : %@";
+"LOCATION_PERMISSION" = "Il semble que nous n'avons pas accès à vos données de localisation. Veuillez autoriser l'accès à vos données dans les réglages pour continuer.";
+"Settings" = "Réglages";
+"Cancel" = "Annuler";
+"Celsius" = "˚C";
+"Fahrenheit" = "˚F";
+"Kelvin" = "˚K";
+"Cannot get last update info" = "Impossible de télécharger le contenu distant.";
+"OK" = "OK";
+"Error" = "Une erreur est survenue.";
+"Cannot load content" = "Impossible de télécharger le contenu distant.";
+"CANNOT GET WEATHER INFO" = "Impossible de télécharger le contenu distant.";
+"INTERN ERROR" = "Une erreur est survenue.";
+"Rate us" = "Notez-nous";
+"Later" = "Plus tard";
+"Go Now!" = "Maintenant !";
+"Do you want to rate our weather app?" = "Voulez-vous évaluer notre application météo ?";
+
+"Thunderstorm With Light Rain" = "Orage avec pluie faible";
+"Thunderstorm With Rain" = "Orage avec pluie modérée";
+"Thunderstorm With Heavy Rain" = "Orage avec pluie forte";
+"Light Thunderstorm" = "Orage faible";
+"Thunderstorm" = "Orage";
+"Heavy Thunderstorm" = "Orage violent";
+"Ragged Thunderstorm" = "Orage épars";
+"Thunderstorm With Light Drizzle" = "Orage avec faible bruine";
+"Thunderstorm With Drizzle" = "Orage avec bruine";
+"Thunderstorm With Heavy Drizzle" = "Orage avec bruine forte";
+"Light Intensity Drizzle" = "Bruine faible";
+"Drizzle" = "Bruine";
+"Heavy Intensity Drizzle" = "Bruine forte";
+"Light Intensity Drizzle" = "Bruine faible";
+"Drizzle Rain" = "Pluie fine éparse";
+"Heavy Intensity Drizzle Rain" = "Crachin intense";
+"Shower Drizzle" = "Averses de bruine";
+"Light Rain" = "Pluie faible";
+"Moderate Rain" = "Pluie modérée";
+"Heavy Intensity Rain" = "Pluie forte";
+"Very Heavy Rain" = "Pluie très intense";
+"Extreme Rain" = "Pluie très abondante";
+"Freezing Rain" = "Pluie glaçante";
+"Light Intensity Shower Rain" = "Averses faibles";
+"Shower Rain" = "Averses";
+"Heavy Intensity Shower Rain" = "Averses fortes";
+"Light Snow" = "Quelques flocons de neige";
+"Snow" = "Neige";
+"Heavy Snow" = "Beaucoup de neige";
+"Sleet" = "Quelques flocons de neige";
+"Shower Snow" = "Chute de neige";
+"Mist" = "Brume";
+"Smoke" = "Brume";
+"Haze" = "Brouillard";
+"Sand/Dust Whrils" = "Poussière";
+"Fog" = "Brouillard";
+"Sky Is Clear" = "Beau temps / Ciel clair";
+"Few Clouds" = "Belles éclaircies";
+"Scattered Clouds" = "Partiellement nuageux";
+"Broken Clouds" = "Nuageux";
+"Overcast Clouds" = "Couvert";
+"Tornado" = "Tempête";
+"Tropical Storm" = "Tempête tropicale";
+"Hurricane" = "Ouragan";
+"Cold" = "Froid";
+"Hot" = "Chaud";
+"Windy" = "Venteux";
+"Hail" = "Grêle";
+"Clear" = "Clair";
+"Clouds" = "Nuageux";
+"Rain" = "Pluie";
+
+"North" = "Nord";
+"North/North Est" = "Nord/Nord-Est";
+"North Est" = "Nord-Est";
+"Est/North Est" = "Est/Nord-Est";
+"Est" = "Est";
+"Est/South Est" = "Est/Sud-Est";
+"South Est" = "Sud-Est";
+"South/South Est" = "Sud/Sud-Est";
+"South" = "Sud";
+"South/South West" = "Sud/Sud-Ouest";
+"South West" = "Sud-Ouest";
+"West/South West" = "Ouest/Sud-Ouest";
+"West" = "Ouest";
+"West/North West" = "Ouest/Nord-Ouest";
+"North West" = "Nord-Ouest";
+"North/North West" = "Nord/Nord-Ouest";

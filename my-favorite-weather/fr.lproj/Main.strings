@@ -1,0 +1,164 @@
+
+/* Class = "UINavigationItem"; title = "About"; ObjectID = "011-vP-JTw"; */
+"011-vP-JTw.title" = "À propos";
+
+/* Class = "UILabel"; text = "Credits"; ObjectID = "0eb-tJ-14Q"; */
+"0eb-tJ-14Q.text" = "Crédits";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "1pz-by-AUv"; */
+"1pz-by-AUv.title" = "Retour";
+
+/* Class = "UIBarButtonItem"; title = "OK"; ObjectID = "3Tc-ON-1hP"; */
+"3Tc-ON-1hP.title" = "OK";
+
+/* Class = "UIViewController"; title = "SearchCityViewController"; ObjectID = "4Rw-MS-9vO"; */
+"4Rw-MS-9vO.title" = "SearchCityViewController";
+
+/* Class = "UILabel"; text = "m/s"; ObjectID = "4hA-Ji-VQb"; */
+"4hA-Ji-VQb.text" = "m/s";
+
+/* Class = "UILabel"; text = "Wind speed"; ObjectID = "4ig-O6-4Fz"; */
+"4ig-O6-4Fz.text" = "Vitesse du vent";
+
+/* Class = "UIBarButtonItem"; title = "Credits"; ObjectID = "6p8-ec-w6P"; */
+"6p8-ec-w6P.title" = "Crédits";
+
+"hNf-yL-WbP.text" = "Notez-nous !";
+
+/* Class = "UILabel"; text = "Terms of use"; ObjectID = "B7m-oL-vX3"; */
+"B7m-oL-vX3.text" = "Termes et conditions";
+
+/* Class = "UIViewController"; title = "PrivacyViewController"; ObjectID = "C5J-cH-57C"; */
+"C5J-cH-57C.title" = "PrivacyViewController";
+
+/* Class = "UILabel"; text = "kersuzan.anthony.developer@gmail.com"; ObjectID = "ChF-FN-fIO"; */
+"ChF-FN-fIO.text" = "kersuzan.anthony.developer@gmail.com";
+
+/* Class = "UIViewController"; title = "AboutViewController"; ObjectID = "EIA-km-2zx"; */
+"EIA-km-2zx.title" = "AboutViewController";
+
+/* Class = "UIViewController"; title = "HomeViewController"; ObjectID = "Ifp-v4-6QO"; */
+"Ifp-v4-6QO.title" = "HomeViewController";
+
+/* Class = "UILabel"; text = "20˚"; ObjectID = "JMO-F6-LFQ"; */
+"JMO-F6-LFQ.text" = "20˚";
+
+/* Class = "UITextView"; text = "This iWeather App, now referred to as the \"App\", provided by Kersuzan Anthony may rely on location based services, such as your GPS coordinates to inform about local forecasts. You may turn off this function within your mobile settings. \n\nThe App may store data on your device to optimize features on the device. This does not identify your device or you.\n\nCookies are not used within the App . \n\nWe do not collect personal data "; ObjectID = "JRv-IR-zst"; */
+"JRv-IR-zst.text" = "This iWeather App, now referred to as the \"App\", provided by Kersuzan Anthony may rely on location based services, such as your GPS coordinates to inform about local forecasts. You may turn off this function within your mobile settings. \n\nThe App may store data on your device to optimize features on the device. This does not identify your device or you.\n\nCookies are not used within the App . \n\nWe do not collect personal data ";
+
+/* Class = "UILabel"; text = "Nationality: French"; ObjectID = "K69-mf-p51"; */
+"K69-mf-p51.text" = "Nationalité: Français";
+
+/* Class = "UILabel"; text = "Nanning"; ObjectID = "KEJ-Gf-7Ay"; */
+"KEJ-Gf-7Ay.text" = "Nanning";
+
+/* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "L6Y-S5-1Bo"; */
+"L6Y-S5-1Bo.title" = "Annuler";
+
+/* Class = "UIViewController"; title = "CreditsViewController"; ObjectID = "LLO-uM-Y8h"; */
+"LLO-uM-Y8h.title" = "CreditsViewController";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "Lhb-f2-nif"; */
+"Lhb-f2-nif.title" = "Retour";
+
+/* Class = "UILabel"; text = "THU"; ObjectID = "N9S-aA-WGl"; */
+"N9S-aA-WGl.text" = "THU";
+
+/* Class = "UILabel"; text = "Kersuzan Anthony"; ObjectID = "PBJ-RK-jrm"; */
+"PBJ-RK-jrm.text" = "Kersuzan Anthony";
+
+/* Class = "UISearchBar"; placeholder = "Enter a city name"; ObjectID = "S6q-67-GLs"; */
+"S6q-67-GLs.placeholder" = "Saisir le nom d'une ville";
+
+/* Class = "UINavigationItem"; title = "Search a city"; ObjectID = "TIY-fj-GcO"; */
+"TIY-fj-GcO.title" = "Rechercher une ville";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "XQE-SR-sVJ"; */
+"XQE-SR-sVJ.title" = "Retour";
+
+/* Class = "UINavigationItem"; title = "Terms of use"; ObjectID = "Yb2-Op-tWH"; */
+"Yb2-Op-tWH.title" = "Termes et conditions";
+
+/* Class = "UISegmentedControl"; ZBj-LU-nIO.segmentTitles[0] = "Standard"; ObjectID = "ZBj-LU-nIO"; */
+"ZBj-LU-nIO.segmentTitles[0]" = "Plan";
+
+/* Class = "UISegmentedControl"; ZBj-LU-nIO.segmentTitles[1] = "Satellite"; ObjectID = "ZBj-LU-nIO"; */
+"ZBj-LU-nIO.segmentTitles[1]" = "Satellite";
+
+/* Class = "UISegmentedControl"; ZBj-LU-nIO.segmentTitles[2] = "Hybrid"; ObjectID = "ZBj-LU-nIO"; */
+"ZBj-LU-nIO.segmentTitles[2]" = "Hybride";
+
+/* Class = "UIBarButtonItem"; title = "Next"; ObjectID = "ZKW-WE-JZh"; */
+"ZKW-WE-JZh.title" = "Suivant";
+
+/* Class = "UILabel"; text = "24˚C"; ObjectID = "alL-NT-rN4"; */
+"alL-NT-rN4.text" = "24˚C";
+
+/* Class = "UILabel"; text = "Atmospheric pressure"; ObjectID = "dZZ-6P-CFT"; */
+"dZZ-6P-CFT.text" = "Pression atmosphérique";
+
+/* Class = "UINavigationItem"; title = "Privacy"; ObjectID = "eiU-1W-bFn"; */
+"eiU-1W-bFn.title" = "Politique de confidentialité";
+
+/* Class = "UILabel"; text = "Mostly cloudy"; ObjectID = "fNX-3m-h3Y"; */
+"fNX-3m-h3Y.text" = "Mostly cloudy";
+
+/* Class = "UILabel"; text = "About us"; ObjectID = "fpV-9F-ZAE"; */
+"fpV-9F-ZAE.text" = "À propos";
+
+/* Class = "UIViewController"; title = "DetailViewController"; ObjectID = "g3f-Sm-VVP"; */
+"g3f-Sm-VVP.title" = "DetailViewController";
+
+/* Class = "UILabel"; text = "hPa"; ObjectID = "gSx-BJ-OmU"; */
+"gSx-BJ-OmU.text" = "hPa";
+
+/* Class = "UINavigationItem"; title = "Configuration"; ObjectID = "hLX-hi-Zt4"; */
+"hLX-hi-Zt4.title" = "Configuration";
+
+/* Class = "UILabel"; text = "Temperature"; ObjectID = "iHE-hY-iM5"; */
+"iHE-hY-iM5.text" = "Température";
+
+/* Class = "UILabel"; text = "Contact"; ObjectID = "iS3-XJ-PMY"; */
+"iS3-XJ-PMY.text" = "Contact";
+
+/* Class = "UINavigationItem"; title = "Credits"; ObjectID = "krL-dA-10t"; */
+"krL-dA-10t.title" = "Crédits";
+
+/* Class = "UITableViewSection"; headerTitle = "Others"; ObjectID = "mI9-3j-LkQ"; */
+"mI9-3j-LkQ.headerTitle" = "Autres";
+
+/* Class = "UIViewController"; title = "TermsOfUserViewController"; ObjectID = "mfe-Yc-DjH"; */
+"mfe-Yc-DjH.title" = "TermsOfUserViewController";
+
+/* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "tUc-jR-uti"; */
+"tUc-jR-uti.title" = "Annuler";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "tuy-AU-cV0"; */
+"tuy-AU-cV0.title" = "Retour";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "uu7-Y2-J8j"; */
+"uu7-Y2-J8j.text" = "Title";
+
+/* Class = "UIBarButtonItem"; title = "Previous"; ObjectID = "vKM-FP-FQf"; */
+"vKM-FP-FQf.title" = "Précédent";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "w20-yy-OCl"; */
+"w20-yy-OCl.text" = "Label";
+
+/* Class = "UILabel"; text = "30˚"; ObjectID = "wYW-0K-Glm"; */
+"wYW-0K-Glm.text" = "30˚";
+
+/* Class = "UITableViewSection"; headerTitle = "Weather unity"; ObjectID = "wbI-gg-ePm"; */
+"wbI-gg-ePm.headerTitle" = "Unité météorologique";
+
+/* Class = "UILabel"; text = "˚C"; ObjectID = "y2m-mb-Drv"; */
+"y2m-mb-Drv.text" = "˚C";
+
+/* Class = "UINavigationItem"; title = "Map"; ObjectID = "yT1-pf-wbj"; */
+"yT1-pf-wbj.title" = "Carte";
+
+/* Class = "UILabel"; text = "Privacy Policy and Cookies"; ObjectID = "yu5-uR-4Il"; */
+"yu5-uR-4Il.text" = "Politique de confidentialité";
+
+/* Class = "UILabel"; text = "Confidentiality"; ObjectID = "z90-P6-x35"; */
+"z90-P6-x35.text" = "Politique de confidentialité";

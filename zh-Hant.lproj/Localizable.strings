@@ -1,0 +1,93 @@
+/*
+ Localizable.strings
+ my-favorite-weather
+ 
+ Created by Kersuzan on 05/01/2016.
+ Copyright © 2016 Kersuzan. All rights reserved.
+ */
+"LAST_UPDATE %@" = "更新:%@";
+"LOCATION_PERMISSION" = "無法獲取您的位置。請在iPhone\"設置－隐私－定位服務\"中允許使用定位服務。";
+"Settings" = "設置";
+"Cancel" = "取消";
+"Celsius" = "˚C";
+"Fahrenheit" = "˚F";
+"Kelvin" = "˚K";
+"Cannot get last update info" = "無法下載資料";
+"OK" = "確定";
+"Error" = "發生錯誤";
+"Cannot load content" = "無法下載資料";
+"CANNOT GET WEATHER INFO" = "無法下載資料";
+"INTERN ERROR" = "發生錯誤";
+"Rate us" = "賞個評價";
+"Later" = "以後再說";
+"Go Now!" = "現在去！";
+"Do you want to rate our weather app?" = "";
+
+"Thunderstorm With Light Rain" = "雷陣雨";
+"Thunderstorm With Rain" = "雷陣雨";
+"Thunderstorm With Heavy Rain" = "雷陣雨";
+"Light Thunderstorm" = "雷陣雨";
+"Thunderstorm" = "雷陣雨";
+"Heavy Thunderstorm" = "雷陣雨";
+"Ragged Thunderstorm" = "雷陣雨";
+"Thunderstorm With Light Drizzle" = "雷陣雨";
+"Thunderstorm With Drizzle" = "雷陣雨";
+"Thunderstorm With Heavy Drizzle" = "雷陣雨";
+"Light Intensity Drizzle" = "小雨";
+"Drizzle" = "小雨";
+"Heavy Intensity Drizzle" = "大雨";
+"Light Intensity Drizzle" = "小雨";
+"Drizzle Rain" = "小雨";
+"Heavy Intensity Drizzle Rain" = "大雨";
+"Shower Drizzle" = "陣雨";
+"Light Rain" = "小雨";
+"Moderate Rain" = "中雨";
+"Heavy Intensity Rain" = "大雨";
+"Very Heavy Rain" = "大雨";
+"Extreme Rain" = "暴雨";
+"Freezing Rain" = "凍雨";
+"Light Intensity Shower Rain" = "陣雨";
+"Shower Rain" = "陣雨";
+"Heavy Intensity Shower Rain" = "大雨";
+"Light Snow" = "小雪";
+"Snow" = "雪";
+"Heavy Snow" = "大雪";
+"Sleet" = "雨夾雪";
+"Shower Snow" = "陣雪";
+"Mist" = "薄霧";
+"Smoke" = "煙霧";
+"Haze" = "薄霧";
+"Sand/Dust Whrils" = "沙旋風";
+"Fog" = "大霧";
+"Sky Is Clear" = "晴";
+"Few Clouds" = "晴，少雲";
+"Scattered Clouds" = "多雲";
+"Broken Clouds" = "多雲";
+"Overcast Clouds" = "陰，多雲";
+"Tornado" = "龍捲風";
+"Tropical Storm" = "熱帶風暴";
+"Hurricane" = "颶風";
+"Cold" = "冷";
+"Hot" = "熱";
+"Windy" = "大風";
+"Hail" = "冰雹";
+"Clear" = "晴";
+"Clouds" = "多雲";
+"Rain" = "下雨";
+
+"North" = "北";
+"North/North Est" = "北／東北";
+"North Est" = "東北";
+"Est/North Est" = "東／東北";
+"Est" = "東";
+"Est/South Est" = "東／東南";
+"South Est" = "東南";
+"South/South Est" = "南／東南";
+"South" = "南";
+"South/South West" = "南／西南";
+"South West" = "西南";
+"West/South West" = "西／西南";
+"West" = "西";
+"West/North West" = "西／西北";
+"North West" = "西北";
+"North/North West" = "北／西北";

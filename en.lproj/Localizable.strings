@@ -1,0 +1,93 @@
+/*
+  Localizable.strings
+  my-favorite-weather
+
+  Created by Kersuzan on 05/01/2016.
+  Copyright © 2016 Kersuzan. All rights reserved.
+*/
+"Settings" = "Settings";
+"Cancel" = "Cancel";
+"LAST_UPDATE %@" = "Last update : %@";
+"LOCATION_PERMISSION" = "Looks like we don't have permission to access your location. Please enable it in Settings to continue.";
+"Celsius" = "˚C";
+"Fahrenheit" = "˚F";
+"Kelvin" = "˚K";
+"Cannot get last update info" = "Unable to load content.";
+"OK" = "OK";
+"Error" = "An error occured";
+"Cannot load content" = "Unable to load content.";
+"CANNOT GET WEATHER INFO" = "Unable to load content.";
+"INTERN ERROR" = "An error occured.";
+"Rate us" = "Rate us";
+"Later" = "Later";
+"Go Now!" = "Go Now!";
+"Do you want to rate our weather app?" = "Do you want to rate our weather app?";
+
+"Thunderstorm With Light Rain" = "Thunderstorm with light rain";
+"Thunderstorm With Rain" = "Thunderstorm with rain";
+"Thunderstorm With Heavy Rain" = "Thunderstorm with heavy rain";
+"Light Thunderstorm" = "Light thunderstorm";
+"Thunderstorm" = "Thunderstorm";
+"Heavy Thunderstorm" = "Heavy thunderstorm";
+"Ragged Thunderstorm" = "Ragged thunderstorm";
+"Thunderstorm With Light Drizzle" = "Thunderstorm with light drizzle";
+"Thunderstorm With Drizzle" = "Thunderstorm with drizzle";
+"Thunderstorm With Heavy Drizzle" = "Thunderstorm with heavy drizzle";
+"Light Intensity Drizzle" = "Light intensity drizzle";
+"Drizzle" = "Drizzle";
+"Heavy Intensity Drizzle" = "Heavy intensity drizzle";
+"Light Intensity Drizzle" = "Light intensity drizzle";
+"Drizzle Rain" = "Drizzle rain";
+"Heavy Intensity Drizzle Rain" = "Heavy intensity drizzle rain";
+"Shower Drizzle" = "Shower drizzle";
+"Light Rain" = "Light rain";
+"Moderate Rain" = "Moderate rain";
+"Heavy Intensity Rain" = "Heavy intensity rain";
+"Very Heavy Rain" = "Very heavy rain";
+"Extreme Rain" = "Extreme rain";
+"Freezing Rain" = "Freezing rain";
+"Light Intensity Shower Rain" = "Light intensity shower rain";
+"Shower Rain" = "Shower rain";
+"Heavy Intensity Shower Rain" = "Heavy intensity shower rain";
+"Light Snow" = "Light snow";
+"Snow" = "Snow";
+"Heavy Snow" = "Heavy snow";
+"Sleet" = "Sleet";
+"Shower Snow" = "Shower snow";
+"Mist" = "Mist";
+"Smoke" = "Smoke";
+"Haze" = "Haze";
+"Sand/Dust Whrils" = "Sand/Dust Whrils";
+"Fog" = "Fog";
+"Sky Is Clear" = "Sky is clear";
+"Few Clouds" = "Few clouds";
+"Scattered Clouds" = "Scattered clouds";
+"Broken Clouds" = "Broken clouds";
+"Overcast Clouds" = "Overcast clouds";
+"Tornado" = "Tornado";
+"Tropical Storm" = "Tropical storm";
+"Hurricane" = "Hurricane";
+"Cold" = "Cold";
+"Hot" = "Hot";
+"Windy" = "Windy";
+"Hail" = "Hail";
+"Clear" = "Clear";
+"Clouds" = "Clouds";
+"Rain" = "Rain";
+
+"North" = "North";
+"North/North Est" = "North/North Est";
+"North Est" = "North Est";
+"Est/North Est" = "Est/North Est";
+"Est" = "Est";
+"Est/South Est" = "Est/South Est";
+"South Est" = "South Est";
+"South/South Est" = "South/South Est";
+"South" = "South";
+"South/South West" = "South/South West";
+"South West" = "South West";
+"West/South West" = "West/South West";
+"West" = "West";
+"West/North West" = "West/North West";
+"North West" = "North West";
+"North/North West" = "North/North West";
