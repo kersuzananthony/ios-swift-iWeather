@@ -33,7 +33,7 @@ class CityCell: UICollectionViewCell {
         self.layer.cornerRadius = 10.0
         self.clipsToBounds = true
         
-        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "deleteFavoriteCity:")
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(CityCell.deleteFavoriteCity(_:)))
         longPressGestureRecognizer.minimumPressDuration = 2.0
         self.addGestureRecognizer(longPressGestureRecognizer)
     }
@@ -65,7 +65,7 @@ class CityCell: UICollectionViewCell {
             trashImageView!.userInteractionEnabled = true
             trashImageView!.image = UIImage(named: "trash")
             
-            let confirmDeleteGestureRecognizer = UITapGestureRecognizer(target: self, action: "deleteItem:")
+            let confirmDeleteGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CityCell.deleteItem(_:)))
             trashImageView!.addGestureRecognizer(confirmDeleteGestureRecognizer)
             
             self.addSubview(trashImageView!)

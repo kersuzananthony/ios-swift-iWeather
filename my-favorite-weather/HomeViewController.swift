@@ -132,10 +132,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         context = appDel.managedObjectContext
         
         // MARK: - NSNotificationCenter observers
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeCellOn:", name: NotificationCenter.removeCityCellOn, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeCellOff:", name: NotificationCenter.removeCityCellOff, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "problemWithData:", name: NotificationCenter.errorManipulatingData, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updatedWeatherInfo:", name: NotificationCenter.updatedWeatherInfo, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.removeCellOn(_:)), name: NotificationCenter.removeCityCellOn, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.removeCellOff(_:)), name: NotificationCenter.removeCityCellOff, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.problemWithData(_:)), name: NotificationCenter.errorManipulatingData, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.updatedWeatherInfo(_:)), name: NotificationCenter.updatedWeatherInfo, object: nil)
         
         // iAD
         //self.canDisplayBannerAds = true
@@ -208,7 +208,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     func removeCellOn(sender: AnyObject) {
 
         if self.removeOptions == false {
-            cancelRemoveGestureRecognize = UITapGestureRecognizer(target: self, action: "removeCellOff:")
+            cancelRemoveGestureRecognize = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.removeCellOff(_:)))
             self.view.addGestureRecognizer(cancelRemoveGestureRecognize!)
         }
         

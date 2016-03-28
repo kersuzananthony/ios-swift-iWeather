@@ -173,7 +173,7 @@ class DetailViewController: UIViewController {
         backImageView.image = UIImage(named: "back")
         backImageView.userInteractionEnabled = true
         
-        let backImageViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: "goBackAction:")
+        let backImageViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DetailViewController.goBackAction(_:)))
         backImageViewTapGestureRecognizer.numberOfTapsRequired = 1
         backImageView.addGestureRecognizer(backImageViewTapGestureRecognizer)
         self.topBar.addSubview(backImageView)
@@ -184,7 +184,7 @@ class DetailViewController: UIViewController {
         mapImageView.image = UIImage(named: "map-marker")
         mapImageView.userInteractionEnabled = true
         
-        let mapImageViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: "mapButtonPressed:")
+        let mapImageViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DetailViewController.mapButtonPressed(_:)))
         mapImageViewTapGestureRecognizer.numberOfTapsRequired = 1
         mapImageView.addGestureRecognizer(mapImageViewTapGestureRecognizer)
         self.topBar.addSubview(mapImageView)
@@ -193,7 +193,7 @@ class DetailViewController: UIViewController {
         self.favoriteImageView.contentMode = UIViewContentMode.ScaleAspectFit
         self.favoriteImageView.userInteractionEnabled = true
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "toggleFavorite:")
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DetailViewController.toggleFavorite(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
         self.favoriteImageView.addGestureRecognizer(tapGestureRecognizer)
         self.topBar.addSubview(favoriteImageView)

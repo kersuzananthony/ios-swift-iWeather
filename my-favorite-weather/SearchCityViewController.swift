@@ -34,6 +34,8 @@ class SearchCityViewController: UIViewController {
         self.searchBar.delegate = self
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        self.searchBar.returnKeyType = UIReturnKeyType.Done
     }
     
     // MARK: - Get all the cities with specific data (Function called by searchBarController)
@@ -71,22 +73,31 @@ extension SearchCityViewController: UISearchBarDelegate {
             timer.invalidate()
         }
         
-        var searchInfo: Dictionary<String, String> = [String: String]()
-        
-        if let keyboardInputMode = self.searchBar.textInputMode?.primaryLanguage {
-            let language = NSString(string: keyboardInputMode).substringToIndex(2)
-            let resultOfGetSearchTextStringFunction = getSearchTextString(searchText, language: language)
-            searchInfo["searchText"] = resultOfGetSearchTextStringFunction.latinVersionSearchText
-            searchInfo["language"] = language
-            
-            if let localeVersion = resultOfGetSearchTextStringFunction.localeVersionSearchText {
-                searchInfo["localeVersion"] = localeVersion
-            }
+        if searchText == "" {
+            searchBar.performSelector(#selector(resignFirstResponder), withObject: nil, afterDelay: 0.1)
         } else {
-            searchInfo["searchText"] = searchText
+            var searchInfo: Dictionary<String, String> = [String: String]()
+            
+            if let keyboardInputMode = self.searchBar.textInputMode?.primaryLanguage {
+                let language = NSString(string: keyboardInputMode).substringToIndex(2)
+                let resultOfGetSearchTextStringFunction = getSearchTextString(searchText, language: language)
+                searchInfo["searchText"] = resultOfGetSearchTextStringFunction.latinVersionSearchText
+                searchInfo["language"] = language
+                
+                if let localeVersion = resultOfGetSearchTextStringFunction.localeVersionSearchText {
+                    searchInfo["localeVersion"] = localeVersion
+                }
+            } else {
+                searchInfo["searchText"] = searchText
+            }
+            
+            self.timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(SearchCityViewController.getCities(_:)), userInfo: searchInfo, repeats: false)
+
         }
-        
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "getCities:", userInfo: searchInfo, repeats: false)
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        view.endEditing(true)
     }
     
     func getSearchTextString(searchText: String, language:String) -> (latinVersionSearchText: String, localeVersionSearchText: String?) {

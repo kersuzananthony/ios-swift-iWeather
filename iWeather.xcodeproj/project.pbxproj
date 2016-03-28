@@ -30,7 +30,6 @@
 		DC91293A1C27A1A1009E379B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC9129381C27A1A1009E379B /* Main.storyboard */; };
 		DC91293D1C27A1A1009E379B /* my_favorite_weather.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DC91293B1C27A1A1009E379B /* my_favorite_weather.xcdatamodeld */; };
 		DC91293F1C27A1A1009E379B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC91293E1C27A1A1009E379B /* Assets.xcassets */; };
-		DC9129421C27A1A1009E379B /* ppp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC9129401C27A1A1009E379B /* ppp.storyboard */; };
 		DC91294D1C27A1A2009E379B /* my_favorite_weatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC91294C1C27A1A2009E379B /* my_favorite_weatherTests.swift */; };
 		DC9129581C27A1A2009E379B /* my_favorite_weatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9129571C27A1A2009E379B /* my_favorite_weatherUITests.swift */; };
 		DC94FC0A1C4B9D43009394FA /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC94FC091C4B9D43009394FA /* AboutUsViewController.swift */; };
@@ -99,7 +98,6 @@
 		DC9129391C27A1A1009E379B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DC91293C1C27A1A1009E379B /* my_favorite_weather.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = my_favorite_weather.xcdatamodel; sourceTree = "<group>"; };
 		DC91293E1C27A1A1009E379B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DC9129411C27A1A1009E379B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ppp.storyboard; sourceTree = "<group>"; };
 		DC9129431C27A1A1009E379B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC9129481C27A1A2009E379B /* iWeather.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iWeather.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC91294C1C27A1A2009E379B /* my_favorite_weatherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = my_favorite_weatherTests.swift; sourceTree = "<group>"; };
@@ -112,16 +110,13 @@
 		DC94FC041C4B8CD8009394FA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		DC94FC051C4B9637009394FA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/NoFavoriteCityView.strings"; sourceTree = "<group>"; };
 		DC94FC061C4B9638009394FA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
-		DC94FC071C4B9638009394FA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/ppp.strings"; sourceTree = "<group>"; };
 		DC94FC081C4B9638009394FA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DC94FC091C4B9D43009394FA /* AboutUsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		DC95FF901C8D78B9003592AF /* Secret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		DC95FF921C8D79B4003592AF /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DC9652431C41F03600F6BB3D /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		DC9D0BB91C366E9E007E2E66 /* WeatherDay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherDay.swift; sourceTree = "<group>"; };
-		DCA52A171C3BF44F000133D0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ppp.strings; sourceTree = "<group>"; };
 		DCA52A1F1C3BF74C000133D0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		DCA52A241C3BFA62000133D0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ppp.strings"; sourceTree = "<group>"; };
 		DCA52A251C3BFA62000133D0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DCA52A271C3BFC2B000133D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/NoFavoriteCityView.xib; sourceTree = "<group>"; };
 		DCA52A2A1C3BFC37000133D0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/NoFavoriteCityView.strings; sourceTree = "<group>"; };
@@ -280,7 +275,6 @@
 				DC42B05F1C27A42100F126B8 /* Util */,
 				DC9129341C27A1A1009E379B /* AppDelegate.swift */,
 				DC91293E1C27A1A1009E379B /* Assets.xcassets */,
-				DC9129401C27A1A1009E379B /* ppp.storyboard */,
 				DC9129431C27A1A1009E379B /* Info.plist */,
 				DC91293B1C27A1A1009E379B /* my_favorite_weather.xcdatamodeld */,
 			);
@@ -480,7 +474,6 @@
 			files = (
 				DC95FF931C8D79B4003592AF /* .gitignore in Resources */,
 				DC042C161C37906400CCFB8E /* weatherIcon.txt in Resources */,
-				DC9129421C27A1A1009E379B /* ppp.storyboard in Resources */,
 				DCA52A261C3BFC2B000133D0 /* NoFavoriteCityView.xib in Resources */,
 				DC91293F1C27A1A1009E379B /* Assets.xcassets in Resources */,
 				DCA52A1E1C3BF74C000133D0 /* Localizable.strings in Resources */,
@@ -637,17 +630,6 @@
 				DC94FC061C4B9638009394FA /* zh-Hant */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		DC9129401C27A1A1009E379B /* ppp.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC9129411C27A1A1009E379B /* Base */,
-				DCA52A171C3BF44F000133D0 /* fr */,
-				DCA52A241C3BFA62000133D0 /* zh-Hans */,
-				DC94FC071C4B9638009394FA /* zh-Hant */,
-			);
-			name = ppp.storyboard;
 			sourceTree = "<group>";
 		};
 		DCA52A201C3BF74C000133D0 /* Localizable.strings */ = {

@@ -24,7 +24,7 @@ class LauchScreenViewController: UIViewController {
         super.viewDidLoad()
         let beginRequest = NSDate()
         
-        for var i = 1; i <= 16; i++ {
+        for i in 1...16 {
             let id: Int = (i % 4) + 1
             let imageView = UIImageView()
             let sizeCoef = randomInRange(50...300)
@@ -56,7 +56,7 @@ class LauchScreenViewController: UIViewController {
                 if requestDuration >= 4.0 {
                     self.goToHome(nil)
                 } else {
-                    _ = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(4.0 - requestDuration), target: self, selector: "goToHome:", userInfo: nil, repeats: false)
+                    _ = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(4.0 - requestDuration), target: self, selector: #selector(LauchScreenViewController.goToHome(_:)), userInfo: nil, repeats: false)
                 }
             }
         }
