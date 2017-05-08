@@ -26,26 +26,26 @@ class ConfigurationTableViewController: UITableViewController {
     @IBOutlet weak var pressureLabel: UILabel!
     
     // MARK: - Quit configuration controller and go back to HomeViewController
-    @IBAction func okPressed(sender: AnyObject) {
+    @IBAction func okPressed(_ sender: AnyObject) {
         userConfiguration.temperatureUnity = Temperature(rawValue: self.temperatureLabel.text!)
         userConfiguration.windSpeedUnity = WindSpeed(rawValue: self.windSpeedLabel.text!)
         userConfiguration.atmosphericPressureUnity = AtmosphericPressure(rawValue: self.pressureLabel.text!)
         userConfiguration.saveUserConfiguration()
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
     }
     
     // MARK: - Everytime ConfigurationViewController view appears, we set all UIPickerView default values
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.temperaturePickerView.selectRow(temperatureDataSource.indexOf(userConfiguration.temperatureUnity) ?? 0, inComponent: 0, animated: false)
-        self.windSpeedPickerView.selectRow(windSpeedDataSource.indexOf(userConfiguration.windSpeedUnity) ?? 0, inComponent: 0, animated: false)
-        self.pressurePickerView.selectRow(pressureDataSource.indexOf(userConfiguration.atmosphericPressureUnity) ?? 0, inComponent: 0, animated: false)
+        self.temperaturePickerView.selectRow(temperatureDataSource.index(of: userConfiguration.temperatureUnity) ?? 0, inComponent: 0, animated: false)
+        self.windSpeedPickerView.selectRow(windSpeedDataSource.index(of: userConfiguration.windSpeedUnity) ?? 0, inComponent: 0, animated: false)
+        self.pressurePickerView.selectRow(pressureDataSource.index(of: userConfiguration.atmosphericPressureUnity) ?? 0, inComponent: 0, animated: false)
         
         self.temperatureLabel.text = self.userConfiguration.temperatureUnity.rawValue
         self.windSpeedLabel.text = self.userConfiguration.windSpeedUnity.rawValue
@@ -66,7 +66,7 @@ class ConfigurationTableViewController: UITableViewController {
     }
 
     // MARK: - Perfom action when row is selected
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 && indexPath.row == 0 {
             closeAllPickerView()
             displayTemperaturePickerView()
@@ -83,52 +83,52 @@ class ConfigurationTableViewController: UITableViewController {
     
     func closeAllPickerView() {
         self.temperaturePickerHidden = true
-        self.temperaturePickerView.hidden = true
+        self.temperaturePickerView.isHidden = true
         self.pressurePickerHidden = true
-        self.pressurePickerView.hidden = true
+        self.pressurePickerView.isHidden = true
         self.windSpeedPickerHidden = true
-        self.windSpeedPickerView.hidden = true
+        self.windSpeedPickerView.isHidden = true
         tableView.beginUpdates()
         tableView.endUpdates()
     }
     
     func displayTemperaturePickerView() {
         self.temperaturePickerHidden = false
-        self.temperaturePickerView.hidden = false
+        self.temperaturePickerView.isHidden = false
         tableView.beginUpdates()
         tableView.endUpdates()
     }
     
     func displayPressurePickerView() {
         self.pressurePickerHidden = false
-        self.pressurePickerView.hidden = false
+        self.pressurePickerView.isHidden = false
         tableView.beginUpdates()
         tableView.endUpdates()
     }
     
     func displayWindSpeedPickerView() {
         self.windSpeedPickerHidden = false
-        self.windSpeedPickerView.hidden = false
+        self.windSpeedPickerView.isHidden = false
         tableView.beginUpdates()
         tableView.endUpdates()
     }
 
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if temperaturePickerHidden && indexPath.section == 0 && indexPath.row == 1 {
             return 0
         } else if !temperaturePickerHidden && indexPath.section == 0 && indexPath.row == 1 {
-            return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+            return super.tableView(tableView, heightForRowAt: indexPath)
         } else  if windSpeedPickerHidden && indexPath.section == 0 && indexPath.row == 3 {
             return 0
         } else if !windSpeedPickerHidden && indexPath.section == 0 && indexPath.row == 3 {
-            return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+            return super.tableView(tableView, heightForRowAt: indexPath)
         } else if pressurePickerHidden && indexPath.section == 0 && indexPath.row == 5 {
             return 0
         } else if !pressurePickerHidden && indexPath.section == 0 && indexPath.row == 5 {
-            return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+            return super.tableView(tableView, heightForRowAt: indexPath)
         } else {
-            return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+            return super.tableView(tableView, heightForRowAt: indexPath)
         }
     }
 
@@ -136,7 +136,7 @@ class ConfigurationTableViewController: UITableViewController {
 
 extension ConfigurationTableViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         if pickerView == self.temperaturePickerView || pickerView == self.windSpeedPickerView || pickerView == self.pressurePickerView {
             return 1
         } else {
@@ -144,7 +144,7 @@ extension ConfigurationTableViewController: UIPickerViewDataSource, UIPickerView
         }
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == self.temperaturePickerView {
             return self.temperatureDataSource.count
         } else if pickerView == self.windSpeedPickerView {
@@ -156,7 +156,7 @@ extension ConfigurationTableViewController: UIPickerViewDataSource, UIPickerView
         }
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView == self.temperaturePickerView {
             return self.temperatureDataSource[row].rawValue
         } else if pickerView == self.windSpeedPickerView {
@@ -168,7 +168,7 @@ extension ConfigurationTableViewController: UIPickerViewDataSource, UIPickerView
         }
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == self.temperaturePickerView {
             self.temperatureLabel.text = self.temperatureDataSource[row].rawValue
             closeAllPickerView()
@@ -182,21 +182,21 @@ extension ConfigurationTableViewController: UIPickerViewDataSource, UIPickerView
     }
     
     func displayRateUsMessage() {
-        let alertViewController = UIAlertController(title: NSLocalizedString("Rate us", comment: "Rate us"), message: NSLocalizedString("Do you want to rate our weather app?", comment: "Rate us message"), preferredStyle: .Alert)
+        let alertViewController = UIAlertController(title: NSLocalizedString("Rate us", comment: "Rate us"), message: NSLocalizedString("Do you want to rate our weather app?", comment: "Rate us message"), preferredStyle: .alert)
         
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Later", comment: "Later"), style: .Cancel) { (action: UIAlertAction) -> Void in
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Later", comment: "Later"), style: .cancel) { (action: UIAlertAction) -> Void in
             
-            alertViewController.dismissViewControllerAnimated(true, completion: nil)
+            alertViewController.dismiss(animated: true, completion: nil)
         }
         
-        let rateItAction = UIAlertAction(title: NSLocalizedString("Go Now!", comment: "Go now!"), style: UIAlertActionStyle.Default) { (action: UIAlertAction) -> Void in
-            UIApplication.sharedApplication().openURL(NSURL(string: "itms-apps://itunes.apple.com/app/id\(APP_ID)")!)
+        let rateItAction = UIAlertAction(title: NSLocalizedString("Go Now!", comment: "Go now!"), style: UIAlertActionStyle.default) { (action: UIAlertAction) -> Void in
+            UIApplication.shared.openURL(URL(string: "itms-apps://itunes.apple.com/app/id\(APP_ID)")!)
         }
         
         alertViewController.addAction(cancelAction)
         alertViewController.addAction(rateItAction)
         
-        self.presentViewController(alertViewController, animated: true, completion: nil)
+        self.present(alertViewController, animated: true, completion: nil)
 
     }
     

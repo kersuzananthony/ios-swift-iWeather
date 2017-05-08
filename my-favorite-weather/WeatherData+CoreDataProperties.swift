@@ -15,7 +15,7 @@ import CoreData
 extension WeatherData {
 
     @NSManaged var city: NSNumber?
-    @NSManaged var weather: NSData?
-    @NSManaged var timestamp: NSDate?
+    @NSManaged var weather: Foundation.Data?
+    @NSManaged var timestamp: Date?
 
 }

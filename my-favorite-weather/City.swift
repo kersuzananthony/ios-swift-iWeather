@@ -9,38 +9,39 @@
 import Foundation
 import UIKit
 import Firebase
+import FirebaseStorage
 
 class City {
     
     // MARK: - private variables
-    private var _id: Int!
-    private var _name: String!
-    private var _country: String!
-    private var _coordinate: Coordinate!
-    private var _isFavorite: Bool!
+    fileprivate var _id: Int!
+    fileprivate var _name: String!
+    fileprivate var _country: String!
+    fileprivate var _coordinate: Coordinate!
+    fileprivate var _isFavorite: Bool!
     
     // MARK: - getter and setters
-    var id: Int! {
+    var id: Int {
         return self._id
     }
     
-    var name: String! {
+    var name: String {
         return self._name
     }
     
-    var country: String! {
+    var country: String {
         return self._country
     }
     
-    var coordinate: Coordinate! {
+    var coordinate: Coordinate {
         return self._coordinate
     }
     
-    var isFavorite: Bool! {
+    var isFavorite: Bool {
         return self._isFavorite
     }
     
-    func getWeather(needValidWeather needValidWeather: Bool, completed: WeatherDownloadComplete) {
+    func getWeather(needValidWeather: Bool, completed: @escaping WeatherDownloadComplete) {
         do {
             try DataService.instance.getWeatherForCity(city: self, needValidWeather: needValidWeather) { (weather: Weather?) -> () in
                 completed(weather)
@@ -64,15 +65,19 @@ class City {
     }
     
     // MARK: - initialize data with firebase snapshot result
-    init(citySnapShot: FDataSnapshot, paramInfo: Dictionary<String, String>) {
-        if let id = citySnapShot.value["_id"] as? Int, let name = citySnapShot.value["name"] as? String, let country = citySnapShot.value["country"] as? String, let coord = citySnapShot.value["coord"] as? Dictionary<String, AnyObject> {
+    init(citySnapShot: FIRDataSnapshot, paramInfo: Dictionary<String, String>) {
+        guard let value = citySnapShot.value as? Dictionary<String, AnyObject> else {
+            return
+        }
+        
+        if let id = value["_id"] as? Int, let name = value["name"] as? String, let country = value["country"] as? String, let coord = value["coord"] as? Dictionary<String, AnyObject> {
             if let lat = coord["lat"] as? Float, let long = coord["lon"] as? Float {
                 self._coordinate = Coordinate(long: CGFloat(long), lat: CGFloat(lat))
                 self._id = id
                 self._country = country
                 self._isFavorite = false
                 
-                if let cityLatinVersion = paramInfo["searchText"] where cityLatinVersion == name, let localeVersion = paramInfo["localeVersion"], language = paramInfo["language"] {
+                if let cityLatinVersion = paramInfo["searchText"], cityLatinVersion == name, let localeVersion = paramInfo["localeVersion"], let language = paramInfo["language"] {
                 
                     if language == Language.Chinese.rawValue && (self._country == Country.China.rawValue || self._country == Country.Hongkong.rawValue || self._country == Country.Taiwan.rawValue) {
                         self._name = "\(localeVersion) (\(name))"

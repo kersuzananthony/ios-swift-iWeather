@@ -38,19 +38,19 @@ enum AtmosphericPressure: String {
     static let getAll = [HectoPascal, Torr]
 }
 
-enum CoreDataError: ErrorType {
-    case CannotDeleteRow(message: String)
-    case DataDoNotExist(message: String)
-    case CannotAddItem(message: String)
-    case NoItemToAdd(message: String)
+enum CoreDataError: Error {
+    case cannotDeleteRow(message: String)
+    case dataDoNotExist(message: String)
+    case cannotAddItem(message: String)
+    case noItemToAdd(message: String)
 }
 
-enum WeatherError: ErrorType {
-    case CannotGetWeather(message: String)
+enum WeatherError: Error {
+    case cannotGetWeather(message: String)
 }
 
-enum EntityError: ErrorType {
-    case EntityNotInstantiable(message: String)
+enum EntityError: Error {
+    case entityNotInstantiable(message: String)
 }
 
 enum Country: String {

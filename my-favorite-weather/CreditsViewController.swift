@@ -13,21 +13,21 @@ class CreditsViewController: UIViewController, UIWebViewDelegate {
     @IBOutlet weak var webView: UIWebView!
     
     
-    @IBAction func previousPressed(sender: UIButton!) {
+    @IBAction func previousPressed(_ sender: UIButton!) {
         self.webView.goBack()
     }
     
-    @IBAction func nextPressed(sender: UIButton!) {
+    @IBAction func nextPressed(_ sender: UIButton!) {
         self.webView.goForward()
     }
     
-    @IBAction func creditPressed(sender: UIButton!) {
+    @IBAction func creditPressed(_ sender: UIButton!) {
         loadCredits()
     }
     
     
     override func viewDidLayoutSubviews() {
-        self.webView.scrollView.setContentOffset(CGPointZero, animated: true)
+        self.webView.scrollView.setContentOffset(CGPoint.zero, animated: true)
     }
     
     override func viewDidLoad() {
@@ -39,11 +39,11 @@ class CreditsViewController: UIViewController, UIWebViewDelegate {
     }
     
     func loadCredits() {
-        let url = NSBundle.mainBundle().pathForResource("credits", ofType: "html")
+        let url = Bundle.main.path(forResource: "credits", ofType: "html")
         
         do {
             if let url = url {
-                let HTMLContent = try NSString(contentsOfFile: url, encoding: NSUTF8StringEncoding)
+                let HTMLContent = try NSString(contentsOfFile: url, encoding: String.Encoding.utf8.rawValue)
                 self.webView.loadHTMLString(HTMLContent as String, baseURL: nil)
             } else {
                 makeAlert()
@@ -55,19 +55,19 @@ class CreditsViewController: UIViewController, UIWebViewDelegate {
     }
     
     func makeAlert() {
-        let alertController = UIAlertController(title: NSLocalizedString("Error", comment: "Error"), message: NSLocalizedString("Cannot load content", comment: "Cannot load content"), preferredStyle: .Alert)
+        let alertController = UIAlertController(title: NSLocalizedString("Error", comment: "Error"), message: NSLocalizedString("Cannot load content", comment: "Cannot load content"), preferredStyle: .alert)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
-            self.navigationController?.popViewControllerAnimated(true)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
+            self.navigationController?.popViewController(animated: true)
         })
         
         alertController.addAction(cancelAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
 
     }
     
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        self.webView.scrollView.setContentOffset(CGPointZero, animated: false)
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        self.webView.scrollView.setContentOffset(CGPoint.zero, animated: false)
         
         return true
     }

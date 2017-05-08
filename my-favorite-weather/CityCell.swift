@@ -38,9 +38,9 @@ class CityCell: UICollectionViewCell {
         self.addGestureRecognizer(longPressGestureRecognizer)
     }
     
-    func configureCell(city: FavoriteCities) {
+    func configureCell(_ city: FavoriteCities) {
         self.city = city
-        self.cityNameLabel.text = city.name?.uppercaseString
+        self.cityNameLabel.text = city.name?.uppercased()
         
         City(favoriteCity: self.city).getWeather(needValidWeather: false, completed: { (weather: Weather?) -> () in
             if let weather = weather, let weatherDay = weather.getTodayWeather() {
@@ -56,42 +56,42 @@ class CityCell: UICollectionViewCell {
     
     // MARK: - Function called by the longPressGestureRecognizer
     //         - Display the trash image in the top right corner of the cell
-    func deleteFavoriteCity(sender: AnyObject) {
+    func deleteFavoriteCity(_ sender: AnyObject) {
         
         if !deleteMode {
             trashImageView = UIImageView(frame: CGRect(x: self.bounds.width - trashWidth - 20, y: 20, width: trashWidth, height: trashHeight))
             
-            trashImageView!.contentMode = UIViewContentMode.ScaleAspectFit
-            trashImageView!.userInteractionEnabled = true
+            trashImageView!.contentMode = UIViewContentMode.scaleAspectFit
+            trashImageView!.isUserInteractionEnabled = true
             trashImageView!.image = UIImage(named: "trash")
             
             let confirmDeleteGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CityCell.deleteItem(_:)))
             trashImageView!.addGestureRecognizer(confirmDeleteGestureRecognizer)
             
             self.addSubview(trashImageView!)
-            self.bringSubviewToFront(trashImageView!)
+            self.bringSubview(toFront: trashImageView!)
             
             self.layer.borderWidth = 2
-            self.layer.borderColor = UIColor.redColor().CGColor
+            self.layer.borderColor = UIColor.red.cgColor
             
-            NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: NotificationCenter.removeCityCellOn, object: nil))
+            Foundation.NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: NotificationCenter.removeCityCellOn), object: nil))
             
             deleteMode = true
         }
         
     }
     
-    func deleteItem(sender: AnyObject?) {
+    func deleteItem(_ sender: AnyObject?) {
         do {
             try DataService.instance.deleteFavoriteCity(favoriteCity: city)
-            NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: NotificationCenter.removeCityCellOff, object: city))
+            Foundation.NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: NotificationCenter.removeCityCellOff), object: city))
             self.removeTrashImageView()
-        } catch CoreDataError.CannotDeleteRow(message: let message) {
-            NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: NotificationCenter.errorManipulatingData, object: NSLocalizedString(message, comment: "Error message")))
-        } catch CoreDataError.DataDoNotExist(message: let message) {
-            NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: NotificationCenter.errorManipulatingData, object: NSLocalizedString(message, comment: "Error message")))
+        } catch CoreDataError.cannotDeleteRow(message: let message) {
+            Foundation.NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: NotificationCenter.errorManipulatingData), object: NSLocalizedString(message, comment: "Error message")))
+        } catch CoreDataError.dataDoNotExist(message: let message) {
+            Foundation.NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: NotificationCenter.errorManipulatingData), object: NSLocalizedString(message, comment: "Error message")))
         } catch _ {
-            NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: NotificationCenter.errorManipulatingData, object: NSLocalizedString("Error", comment: "Error message")))
+            Foundation.NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: NotificationCenter.errorManipulatingData), object: NSLocalizedString("Error", comment: "Error message")))
         }
     }
     

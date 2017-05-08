@@ -15,16 +15,16 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     var originFrame = CGRect.zero
     
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?)-> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?)-> TimeInterval {
         return duration
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let containerView = transitionContext.containerView()
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let containerView = transitionContext.containerView
         
-        let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!
+        let toView = transitionContext.view(forKey: UITransitionContextViewKey.to)!
         
-        let detailView = presenting ? toView : transitionContext.viewForKey(UITransitionContextFromViewKey)!
+        let detailView = presenting ? toView : transitionContext.view(forKey: UITransitionContextViewKey.from)!
         
         let initialFrame = presenting ? originFrame : detailView.frame
         let finalFrame = presenting ? detailView.frame : originFrame
@@ -38,22 +38,22 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             finalFrame.height / initialFrame.height
         
         
-        let scaleTransform = CGAffineTransformMakeScale(xScaleFactor, yScaleFactor)
+        let scaleTransform = CGAffineTransform(scaleX: xScaleFactor, y: yScaleFactor)
         
         if presenting {
             detailView.transform = scaleTransform
             detailView.center = CGPoint(
-                x: CGRectGetMidX(initialFrame),
-                y: CGRectGetMidY(initialFrame))
+                x: initialFrame.midX,
+                y: initialFrame.midY)
             detailView.clipsToBounds = true
         }
         
-        containerView!.addSubview(toView)
-        containerView!.bringSubviewToFront(detailView)
+        containerView.addSubview(toView)
+        containerView.bringSubview(toFront: detailView)
         
-        UIView.animateWithDuration(duration, delay: 0.0, options: [.CurveEaseOut], animations: { () -> Void in
-            detailView.transform = self.presenting ? CGAffineTransformIdentity : scaleTransform
-            detailView.center = CGPoint(x: CGRectGetMidX(finalFrame), y: CGRectGetMidY(finalFrame))
+        UIView.animate(withDuration: duration, delay: 0.0, options: [.curveEaseOut], animations: { () -> Void in
+            detailView.transform = self.presenting ? CGAffineTransform.identity : scaleTransform
+            detailView.center = CGPoint(x: finalFrame.midX, y: finalFrame.midY)
             }) { (_) -> Void in
                 transitionContext.completeTransition(true)
         }
@@ -62,7 +62,7 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         round.fromValue = presenting ? 20.0/xScaleFactor : 0.0
         round.toValue = presenting ? 0.0 : 20.0/xScaleFactor
         round.duration = duration / 2
-        detailView.layer.addAnimation(round, forKey: nil)
+        detailView.layer.add(round, forKey: nil)
         detailView.layer.cornerRadius = presenting ? 0.0 : 20.0/xScaleFactor
     }
 

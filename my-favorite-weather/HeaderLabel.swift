@@ -12,8 +12,8 @@ class HeaderLabel: UILabel {
     
     override func awakeFromNib() {
         self.font = UIFont(name: "Helvetica", size: 17)
-        self.textColor = UIColor.whiteColor()
-        self.textAlignment = NSTextAlignment.Center
+        self.textColor = UIColor.white
+        self.textAlignment = NSTextAlignment.center
         self.sizeToFit()
         self.shadowColor = UIColor(red: 0 / 255, green: 0 / 255, blue: 0 / 255, alpha: 0.6)
         self.shadowOffset = CGSize(width: 1, height: 1)

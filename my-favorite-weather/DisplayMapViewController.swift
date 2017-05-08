@@ -16,26 +16,26 @@ class DisplayMapViewController: UIViewController {
     @IBOutlet weak var map: MKMapView!
     
     // MARK: - IBAction
-    @IBAction func cancelPressed(sender: UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancelPressed(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Change type of map
-    @IBAction func typeMapPressed(sender: UISegmentedControl) {
+    @IBAction func typeMapPressed(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
-            self.map.mapType = MKMapType.Standard
+            self.map.mapType = MKMapType.standard
         } else if sender.selectedSegmentIndex == 1 {
-            self.map.mapType = MKMapType.Satellite
+            self.map.mapType = MKMapType.satellite
         } else if sender.selectedSegmentIndex == 2 {
-            self.map.mapType = MKMapType.Hybrid
+            self.map.mapType = MKMapType.hybrid
         }
     }
     
     // MARK: - Controller variables
     var city: City!
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
     }
     
     override func viewDidLoad() {
@@ -74,8 +74,8 @@ class DisplayMapViewController: UIViewController {
 
 extension DisplayMapViewController: UINavigationBarDelegate {
     
-    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
-        return UIBarPosition.TopAttached
+    func position(for bar: UIBarPositioning) -> UIBarPosition {
+        return UIBarPosition.topAttached
     }
     
 }

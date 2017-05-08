@@ -10,7 +10,7 @@ import Foundation
 
 class WeatherDay: NSObject, NSCoding  {
     
-    private let configuration = Configuration.instance.getUserConfiguration()
+    fileprivate let configuration = Configuration.instance.getUserConfiguration()
     
     override init() {
         
@@ -18,58 +18,58 @@ class WeatherDay: NSObject, NSCoding  {
     
     convenience required init?(coder aDecoder: NSCoder) {
         self.init()
-        self._shortDescription = aDecoder.decodeObjectForKey("shortDescription") as? String
-        self._longDescription = aDecoder.decodeObjectForKey("longDescription") as? String
-        self._icon = aDecoder.decodeObjectForKey("icon") as? String
-        self._day = aDecoder.decodeObjectForKey("day") as? String
-        self._date = aDecoder.decodeObjectForKey("date") as? String
-        self._time = aDecoder.decodeObjectForKey("time") as? String
-        self._timestamp = aDecoder.decodeObjectForKey("timestamp") as? NSDate
-        self._tempDay = aDecoder.decodeObjectForKey("tempDay") as? Double
-        self._tempMax = aDecoder.decodeObjectForKey("tempMax") as? Double
-        self._tempNight = aDecoder.decodeObjectForKey("tempNight") as? Double
-        self._tempMin = aDecoder.decodeObjectForKey("tempMin") as? Double
-        self._humidity = aDecoder.decodeObjectForKey("humidity") as? Double
-        self._pressure = aDecoder.decodeObjectForKey("pressure") as? Double
-        self._windSpeed = aDecoder.decodeObjectForKey("windSpeed") as? Double
-        self._windDirection = aDecoder.decodeObjectForKey("windDirection") as? String
+        self._shortDescription = aDecoder.decodeObject(forKey: "shortDescription") as? String
+        self._longDescription = aDecoder.decodeObject(forKey: "longDescription") as? String
+        self._icon = aDecoder.decodeObject(forKey: "icon") as? String
+        self._day = aDecoder.decodeObject(forKey: "day") as? String
+        self._date = aDecoder.decodeObject(forKey: "date") as? String
+        self._time = aDecoder.decodeObject(forKey: "time") as? String
+        self._timestamp = aDecoder.decodeObject(forKey: "timestamp") as? Date
+        self._tempDay = aDecoder.decodeObject(forKey: "tempDay") as? Double
+        self._tempMax = aDecoder.decodeObject(forKey: "tempMax") as? Double
+        self._tempNight = aDecoder.decodeObject(forKey: "tempNight") as? Double
+        self._tempMin = aDecoder.decodeObject(forKey: "tempMin") as? Double
+        self._humidity = aDecoder.decodeObject(forKey: "humidity") as? Double
+        self._pressure = aDecoder.decodeObject(forKey: "pressure") as? Double
+        self._windSpeed = aDecoder.decodeObject(forKey: "windSpeed") as? Double
+        self._windDirection = aDecoder.decodeObject(forKey: "windDirection") as? String
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self._shortDescription, forKey: "shortDescription")
-        aCoder.encodeObject(self._longDescription, forKey: "longDescription")
-        aCoder.encodeObject(self._icon, forKey: "icon")
-        aCoder.encodeObject(self._day, forKey: "day")
-        aCoder.encodeObject(self._date, forKey: "date")
-        aCoder.encodeObject(self._time, forKey: "time")
-        aCoder.encodeObject(self._timestamp, forKey: "timestamp")
-        aCoder.encodeObject(self._tempDay, forKey: "tempDay")
-        aCoder.encodeObject(self._tempNight, forKey: "tempNight")
-        aCoder.encodeObject(self._tempMax, forKey: "tempMax")
-        aCoder.encodeObject(self._tempMin, forKey: "tempMin")
-        aCoder.encodeObject(self._humidity, forKey: "humidity")
-        aCoder.encodeObject(self._pressure, forKey: "pressure")
-        aCoder.encodeObject(self._windSpeed, forKey: "windSpeed")
-        aCoder.encodeObject(self._windDirection, forKey: "windDirection")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self._shortDescription, forKey: "shortDescription")
+        aCoder.encode(self._longDescription, forKey: "longDescription")
+        aCoder.encode(self._icon, forKey: "icon")
+        aCoder.encode(self._day, forKey: "day")
+        aCoder.encode(self._date, forKey: "date")
+        aCoder.encode(self._time, forKey: "time")
+        aCoder.encode(self._timestamp, forKey: "timestamp")
+        aCoder.encode(self._tempDay, forKey: "tempDay")
+        aCoder.encode(self._tempNight, forKey: "tempNight")
+        aCoder.encode(self._tempMax, forKey: "tempMax")
+        aCoder.encode(self._tempMin, forKey: "tempMin")
+        aCoder.encode(self._humidity, forKey: "humidity")
+        aCoder.encode(self._pressure, forKey: "pressure")
+        aCoder.encode(self._windSpeed, forKey: "windSpeed")
+        aCoder.encode(self._windDirection, forKey: "windDirection")
     }
     
     
     // MARK: - Private properties
-    private var _shortDescription: String?
-    private var _longDescription: String?
-    private var _icon: String?
-    private var _day: String!
-    private var _date: String!
-    private var _time: String!
-    private var _tempDay: Double?
-    private var _tempMax: Double?
-    private var _tempMin: Double?
-    private var _tempNight: Double?
-    private var _humidity: Double?
-    private var _pressure: Double?
-    private var _windSpeed: Double?
-    private var _windDirection: String?
-    private var _timestamp: NSDate!
+    fileprivate var _shortDescription: String?
+    fileprivate var _longDescription: String?
+    fileprivate var _icon: String?
+    fileprivate var _day: String!
+    fileprivate var _date: String!
+    fileprivate var _time: String!
+    fileprivate var _tempDay: Double?
+    fileprivate var _tempMax: Double?
+    fileprivate var _tempMin: Double?
+    fileprivate var _tempNight: Double?
+    fileprivate var _humidity: Double?
+    fileprivate var _pressure: Double?
+    fileprivate var _windSpeed: Double?
+    fileprivate var _windDirection: String?
+    fileprivate var _timestamp: Date!
 
     enum WindDirection: String {
         case N = "North"
@@ -125,7 +125,7 @@ class WeatherDay: NSObject, NSCoding  {
     var shortDescription: String {
         get {
             if let description = self._shortDescription {
-                return NSLocalizedString(description.capitalizedString, comment: "weather short description")
+                return NSLocalizedString(description.capitalized, comment: "weather short description")
             } else {
                 return ""
             }
@@ -135,7 +135,7 @@ class WeatherDay: NSObject, NSCoding  {
     var longDescription: String {
         get {
             if let description = self._longDescription {
-                return NSLocalizedString(description.capitalizedString, comment: "weather long description")
+                return NSLocalizedString(description.capitalized, comment: "weather long description")
             } else {
                 return ""
             }
@@ -157,7 +157,7 @@ class WeatherDay: NSObject, NSCoding  {
             if _day == nil {
                 return ""
             }
-            return _day.uppercaseString
+            return _day.uppercased()
         }
     }
     
@@ -179,7 +179,7 @@ class WeatherDay: NSObject, NSCoding  {
         }
     }
     
-    var timestamp: NSDate! {
+    var timestamp: Date! {
         get {
             return self._timestamp
         }
@@ -303,23 +303,23 @@ class WeatherDay: NSObject, NSCoding  {
         }
     }
     
-    func kelvinToFahrenheit(kelvin: Double) -> Double {
+    func kelvinToFahrenheit(_ kelvin: Double) -> Double {
         return (kelvin - 273.15) * 1.8 + 32.0
     }
     
-    func kelvinToCelsius(kelvin: Double) -> Double {
+    func kelvinToCelsius(_ kelvin: Double) -> Double {
         return kelvin - 273.15
     }
     
-    func meterPerSecondToKilometerPerHour(speed: Double) -> Double {
+    func meterPerSecondToKilometerPerHour(_ speed: Double) -> Double {
         return speed * 3.6
     }
     
-    func meterPerSecondToMilesPerHour(speed: Double) -> Double {
+    func meterPerSecondToMilesPerHour(_ speed: Double) -> Double {
         return speed * 2.236936
     }
     
-    func hpatoTorr(pressure: Double) -> Double {
+    func hpatoTorr(_ pressure: Double) -> Double {
         return pressure * 0.75006375541921
     }
     
@@ -329,17 +329,17 @@ class WeatherDay: NSObject, NSCoding  {
         
         // MARK: - datetime
         if let datetime = weatherDayData["dt"] as? Double {
-            let date = NSDate(timeIntervalSince1970: datetime)
+            let date = Date(timeIntervalSince1970: datetime)
             self._timestamp = date
-            let dayFormatter = NSDateFormatter()
-            let dateFormatter = NSDateFormatter()
-            let timeFormatter = NSDateFormatter()
+            let dayFormatter = DateFormatter()
+            let dateFormatter = DateFormatter()
+            let timeFormatter = DateFormatter()
             dayFormatter.dateFormat = "EE"
-            dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
+            dateFormatter.dateStyle = DateFormatter.Style.long
             timeFormatter.dateFormat = "h:mm a"
-            self._day = dayFormatter.stringFromDate(date)
-            self._date = dateFormatter.stringFromDate(date)
-            self._time = timeFormatter.stringFromDate(date)
+            self._day = dayFormatter.string(from: date)
+            self._date = dateFormatter.string(from: date)
+            self._time = timeFormatter.string(from: date)
         }
         
         // MARK: - weather sub dictionary
@@ -355,8 +355,8 @@ class WeatherDay: NSObject, NSCoding  {
             }
             
             if var icon = weather[0]["icon"] as? String {
-                icon = icon.stringByReplacingOccurrencesOfString("dd", withString: "d")
-                icon = icon.stringByReplacingOccurrencesOfString("nn", withString: "n")
+                icon = icon.replacingOccurrences(of: "dd", with: "d")
+                icon = icon.replacingOccurrences(of: "nn", with: "n")
                 self._icon = icon
             }
         }

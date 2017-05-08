@@ -12,7 +12,8 @@ class SearchCityCell: UITableViewCell {
 
     @IBOutlet weak var cityLabel: UILabel!
 
-    func configureCell(city: City) {
+    func configureCell(_ city: City) {
+        
         self.cityLabel.text = "\(city.name) - \(city.country)"
     }
     

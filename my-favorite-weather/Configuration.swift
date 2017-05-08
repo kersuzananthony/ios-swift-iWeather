@@ -14,9 +14,9 @@ class Configuration: NSObject, NSCoding {
     
     let CONFIGURATION_KEY = "UserConfiguration"
     
-    private var _temperatureUnity: Temperature?
-    private var _atmosphericPressureUnity: AtmosphericPressure?
-    private var _windSpeedUnity: WindSpeed?
+    fileprivate var _temperatureUnity: Temperature?
+    fileprivate var _atmosphericPressureUnity: AtmosphericPressure?
+    fileprivate var _windSpeedUnity: WindSpeed?
     
     var temperatureUnity: Temperature! {
         get {
@@ -46,8 +46,8 @@ class Configuration: NSObject, NSCoding {
     }
     
     func getUserConfiguration() -> Configuration {
-        if let configurationData = NSUserDefaults.standardUserDefaults().objectForKey(self.CONFIGURATION_KEY) as? NSData {
-            if let configuration = NSKeyedUnarchiver.unarchiveObjectWithData(configurationData) as? Configuration {
+        if let configurationData = UserDefaults.standard.object(forKey: self.CONFIGURATION_KEY) as? Foundation.Data {
+            if let configuration = NSKeyedUnarchiver.unarchiveObject(with: configurationData) as? Configuration {
                 return configuration
             } else {
                 return Configuration(temperature: Temperature.Celsius, wind: WindSpeed.KilometerPerHour, pressure: AtmosphericPressure.HectoPascal)
@@ -58,9 +58,9 @@ class Configuration: NSObject, NSCoding {
     }
     
     func saveUserConfiguration() {
-        let configurationData = NSKeyedArchiver.archivedDataWithRootObject(self)
-        NSUserDefaults.standardUserDefaults().setObject(configurationData, forKey: CONFIGURATION_KEY)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        let configurationData = NSKeyedArchiver.archivedData(withRootObject: self)
+        UserDefaults.standard.set(configurationData, forKey: CONFIGURATION_KEY)
+        UserDefaults.standard.synchronize()
     }
     
     init(temperature: Temperature, wind: WindSpeed, pressure: AtmosphericPressure) {
@@ -77,14 +77,14 @@ class Configuration: NSObject, NSCoding {
     
     convenience required init?(coder aDecoder: NSCoder) {
         self.init()
-        self._atmosphericPressureUnity = AtmosphericPressure(rawValue: aDecoder.decodeObjectForKey("atmosphericPressureUnity") as! String)
-        self._temperatureUnity = Temperature(rawValue: aDecoder.decodeObjectForKey("temperatureUnity") as! String)
-        self._windSpeedUnity = WindSpeed(rawValue: aDecoder.decodeObjectForKey("windSpeedUnity") as! String)
+        self._atmosphericPressureUnity = AtmosphericPressure(rawValue: aDecoder.decodeObject(forKey: "atmosphericPressureUnity") as! String)
+        self._temperatureUnity = Temperature(rawValue: aDecoder.decodeObject(forKey: "temperatureUnity") as! String)
+        self._windSpeedUnity = WindSpeed(rawValue: aDecoder.decodeObject(forKey: "windSpeedUnity") as! String)
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self._temperatureUnity?.rawValue, forKey: "temperatureUnity")
-        aCoder.encodeObject(self._atmosphericPressureUnity?.rawValue, forKey: "atmosphericPressureUnity")
-        aCoder.encodeObject(self._windSpeedUnity?.rawValue, forKey: "windSpeedUnity")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self._temperatureUnity?.rawValue, forKey: "temperatureUnity")
+        aCoder.encode(self._atmosphericPressureUnity?.rawValue, forKey: "atmosphericPressureUnity")
+        aCoder.encode(self._windSpeedUnity?.rawValue, forKey: "windSpeedUnity")
     }
 }

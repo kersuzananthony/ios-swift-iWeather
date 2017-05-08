@@ -10,12 +10,36 @@ import UIKit
 import CoreLocation
 import CoreData
 import iAd
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 // MARK: - HomeViewController, @IBOutlet, @IBAction, Variables and main methods declaration
 class HomeViewController: UIViewController, CLLocationManagerDelegate {
 
     
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
         self.collectionView.reloadData()
     }
     
@@ -35,32 +59,32 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
 
     var locationManager: CLLocationManager = CLLocationManager()
     var appDel: AppDelegate = AppDelegate()
-    var context: NSManagedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
-    private var _fetchResultsController: NSFetchedResultsController? = nil
+    var context: NSManagedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
+    fileprivate var _fetchResultsController: NSFetchedResultsController<FavoriteCities>? = nil
     
     // MARK: - Change bar style
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
     }
     
     // MARK: -IBAction
-    @IBAction func locateMePressed(sender: UIButton) {
+    @IBAction func locateMePressed(_ sender: UIButton) {
         
-        if CLLocationManager.authorizationStatus() == .Denied {
-            let alertController = UIAlertController(title: NSLocalizedString("Settings", comment: "Settings"), message: NSLocalizedString("LOCATION_PERMISSION", comment: "Location permission message"), preferredStyle: UIAlertControllerStyle.Alert)
+        if CLLocationManager.authorizationStatus() == .denied {
+            let alertController = UIAlertController(title: NSLocalizedString("Settings", comment: "Settings"), message: NSLocalizedString("LOCATION_PERMISSION", comment: "Location permission message"), preferredStyle: UIAlertControllerStyle.alert)
             
-            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: UIAlertActionStyle.Cancel, handler: nil)
-            let goToSettingsAction = UIAlertAction(title: NSLocalizedString("Settings", comment: "Settings"), style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
+            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: UIAlertActionStyle.cancel, handler: nil)
+            let goToSettingsAction = UIAlertAction(title: NSLocalizedString("Settings", comment: "Settings"), style: UIAlertActionStyle.default, handler: { (alertAction) -> Void in
                 
-                if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
-                    UIApplication.sharedApplication().openURL(appSettings)
+                if let appSettings = URL(string: UIApplicationOpenSettingsURLString) {
+                    UIApplication.shared.openURL(appSettings)
                 }
             })
             
             alertController.addAction(cancelAction)
             alertController.addAction(goToSettingsAction)
             
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
         } else {
             
             initIndicatorView()
@@ -74,7 +98,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
                     self.stopIndicatorView()
                     
                     if let city = city, let weather = weather {
-                        self.performSegueWithIdentifier(Storyboard.Segue.viewWeatherDetail, sender: ["city": city, "weather": weather])
+                        self.performSegue(withIdentifier: Storyboard.Segue.viewWeatherDetail, sender: ["city": city, "weather": weather])
                     } else {
                         self.displayCannotGetPositionMessage()
                     }
@@ -92,25 +116,25 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         self.activityIndicator.center = self.view.center
         self.activityIndicator.hidesWhenStopped = true
         self.view.addSubview(self.activityIndicator)
-        self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
+        self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
         self.activityIndicator.startAnimating()
-        UIApplication.sharedApplication().beginIgnoringInteractionEvents()
+        UIApplication.shared.beginIgnoringInteractionEvents()
     }
     
     func stopIndicatorView() {
         self.activityIndicator.stopAnimating()
-        UIApplication.sharedApplication().endIgnoringInteractionEvents()
+        UIApplication.shared.endIgnoringInteractionEvents()
     }
     
     func displayCannotGetPositionMessage() {
-        let alertController = UIAlertController(title: NSLocalizedString("Error", comment: "Error"), message: NSLocalizedString("CANNOT GET WEATHER INFO", comment: "Cannot get weather info"), preferredStyle: .Alert)
+        let alertController = UIAlertController(title: NSLocalizedString("Error", comment: "Error"), message: NSLocalizedString("CANNOT GET WEATHER INFO", comment: "Cannot get weather info"), preferredStyle: .alert)
         
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .Cancel, handler: { (action) -> Void in
-            self.dismissViewControllerAnimated(true, completion: nil)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .cancel, handler: { (action) -> Void in
+            self.dismiss(animated: true, completion: nil)
         })
         
         alertController.addAction(cancelAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -128,31 +152,31 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         self.collectionView.dataSource = self
      
         // MARK: - Core Data configuration
-        appDel = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDel = UIApplication.shared.delegate as! AppDelegate
         context = appDel.managedObjectContext
         
         // MARK: - NSNotificationCenter observers
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.removeCellOn(_:)), name: NotificationCenter.removeCityCellOn, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.removeCellOff(_:)), name: NotificationCenter.removeCityCellOff, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.problemWithData(_:)), name: NotificationCenter.errorManipulatingData, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.updatedWeatherInfo(_:)), name: NotificationCenter.updatedWeatherInfo, object: nil)
+        Foundation.NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.removeCellOn(_:)), name: NSNotification.Name(rawValue: NotificationCenter.removeCityCellOn), object: nil)
+        Foundation.NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.removeCellOff(_:)), name: NSNotification.Name(rawValue: NotificationCenter.removeCityCellOff), object: nil)
+        Foundation.NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.problemWithData(_:)), name: NSNotification.Name(rawValue: NotificationCenter.errorManipulatingData), object: nil)
+        Foundation.NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.updatedWeatherInfo(_:)), name: NSNotification.Name(rawValue: NotificationCenter.updatedWeatherInfo), object: nil)
         
         // iAD
         //self.canDisplayBannerAds = true
     }
     
-    func problemWithData(sender: NSNotification?) {
-        let alertController = UIAlertController(title: NSLocalizedString("Error", comment: "Error"), message: NSLocalizedString("INTERN ERROR", comment: "Core data intern error"), preferredStyle: .Alert)
+    func problemWithData(_ sender: Notification?) {
+        let alertController = UIAlertController(title: NSLocalizedString("Error", comment: "Error"), message: NSLocalizedString("INTERN ERROR", comment: "Core data intern error"), preferredStyle: .alert)
         
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .Cancel, handler: { (action) -> Void in
-            self.dismissViewControllerAnimated(true, completion: nil)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .cancel, handler: { (action) -> Void in
+            self.dismiss(animated: true, completion: nil)
         })
         
         alertController.addAction(cancelAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         self.loadBannerViewSuccess = false
@@ -160,13 +184,13 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         displayBannerAdvertising()
     }
     
-    func updatedWeatherInfo(sender: NSNotification) {
+    func updatedWeatherInfo(_ sender: Notification) {
         if let city = sender.object as? City {
             do {
                 print("we must update it!!!")
                 let favoriteCity = try DataService.instance.getFavoriteCityById(id: city.id)
-                let indexPath = self.fetchResultsController.indexPathForObject(favoriteCity)
-                let cell = self.collectionView.cellForItemAtIndexPath(indexPath!) as! CityCell
+                let indexPath = self.fetchResultsController.indexPath(forObject: favoriteCity)
+                let cell = self.collectionView.cellForItem(at: indexPath!) as! CityCell
                 cell.configureCell(favoriteCity)
             } catch _ {
                 problemWithData(nil)
@@ -176,23 +200,22 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     
     // MARK: - User has not added favorite cities yet. Display a UIView for informing him/her
     func displayNoFavoriteView() {
-        print("number of object \(self.fetchResultsController.sections?[0].numberOfObjects)")
-        if let number = self.fetchResultsController.sections?[0].numberOfObjects where number == 0 {
+        if let number = self.fetchResultsController.sections?[0].numberOfObjects, number == 0 {
             if self.noFavoriteView == nil {
                 self.noFavoriteView = NoFavoriteCityView()
                 self.noFavoriteView!.translatesAutoresizingMaskIntoConstraints = false
                 view.addSubview(self.noFavoriteView!)
                 
-                let horizontalConstraint = NSLayoutConstraint(item: self.noFavoriteView!, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0)
+                let horizontalConstraint = NSLayoutConstraint(item: self.noFavoriteView!, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0)
                 view.addConstraint(horizontalConstraint)
                 
-                let verticalConstraint = NSLayoutConstraint(item: self.noFavoriteView!, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0)
+                let verticalConstraint = NSLayoutConstraint(item: self.noFavoriteView!, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0)
                 view.addConstraint(verticalConstraint)
                 
-                let widthConstraint = NSLayoutConstraint(item: self.noFavoriteView!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: self.view.frame.size.width * 0.9)
+                let widthConstraint = NSLayoutConstraint(item: self.noFavoriteView!, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: self.view.frame.size.width * 0.9)
                 view.addConstraint(widthConstraint)
                 
-                let heightConstraint = NSLayoutConstraint(item: self.noFavoriteView!, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: self.noFavoriteView!.frame.size.height)
+                let heightConstraint = NSLayoutConstraint(item: self.noFavoriteView!, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: self.noFavoriteView!.frame.size.height)
                 view.addConstraint(heightConstraint)
             }
         } else {
@@ -205,7 +228,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     // MARK: - Function called by NSNotification when the user wants to delete a city from his / her favorite cities
-    func removeCellOn(sender: AnyObject) {
+    func removeCellOn(_ sender: AnyObject) {
 
         if self.removeOptions == false {
             cancelRemoveGestureRecognize = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.removeCellOff(_:)))
@@ -216,9 +239,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     // MARK: - Function called by NSNotification when the user wants to stop deleting favorite cities
-    func removeCellOff(sender: AnyObject) {
+    func removeCellOff(_ sender: AnyObject) {
         
-        for cell in self.collectionView.visibleCells() as! [CityCell] {
+        for cell in self.collectionView.visibleCells as! [CityCell] {
             cell.removeTrashImageView()
         }
         
@@ -229,14 +252,16 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     // MARK: - Prepare for Segue method
     // MARK: - Case 1: User wants to access weather detail by pressing one of his/her favorite cities
     // MARK: - Case 2: User wants to access weather detail by pressing geolocation button
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Storyboard.Segue.viewWeatherDetail {
-            if let destinationController = segue.destinationViewController as? DetailViewController, let favoriteCity = sender as? FavoriteCities {
+            if let destinationController = segue.destination as? DetailViewController, let favoriteCity = sender as? FavoriteCities {
                 destinationController.transitioningDelegate = self
                 destinationController.city = City(favoriteCity: favoriteCity)
-            } else if let destinationController = segue.destinationViewController as? DetailViewController, let city = sender?["city"] as? City, let weather = sender?["weather"] as? Weather {
-                destinationController.city = city
-                destinationController.weather = weather
+            } else if let destinationController = segue.destination as? DetailViewController {
+                if let aSender = sender as? Dictionary<String, AnyObject>, let city = aSender["city"] as? City, let weather = aSender["weather"] as? Weather {
+                    destinationController.city = city
+                    destinationController.weather = weather
+                }
             }
         }
     }
@@ -244,10 +269,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height: CGFloat = 0.6 * self.view.frame.height
         let width: CGFloat = height / 1.36
-        return CGSizeMake(width, height)
+        return CGSize(width: width, height: height)
     }
     
 }
@@ -257,19 +282,19 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 extension HomeViewController: UICollectionViewDelegate {
     
     // MARK: - didSelectItemAtIndexPath method
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if self.removeOptions {
             return
         }
         
-        let selectedFavoriteCity = self.fetchResultsController.objectAtIndexPath(indexPath) as! FavoriteCities
-        self.selectedCell = self.collectionView.cellForItemAtIndexPath(indexPath)
-        self.performSegueWithIdentifier(Storyboard.Segue.viewWeatherDetail, sender: selectedFavoriteCity)
+        let selectedFavoriteCity = self.fetchResultsController.object(at: indexPath) as! FavoriteCities
+        self.selectedCell = self.collectionView.cellForItem(at: indexPath)
+        self.performSegue(withIdentifier: Storyboard.Segue.viewWeatherDetail, sender: selectedFavoriteCity)
     }
 
     // MARK: - canPerformAction method
-    func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
         return true
     }
     
@@ -278,11 +303,11 @@ extension HomeViewController: UICollectionViewDelegate {
 // MARK: - UICollectionViewDataSource methods
 extension HomeViewController: UICollectionViewDataSource {
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return (self.fetchResultsController.sections?.count) ?? 0
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if self.fetchResultsController.sections?.count > 0 {
             let sectionInfo = self.fetchResultsController.sections![section] as NSFetchedResultsSectionInfo
             return sectionInfo.numberOfObjects
@@ -291,10 +316,10 @@ extension HomeViewController: UICollectionViewDataSource {
         return 0
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = self.collectionView.dequeueReusableCellWithReuseIdentifier(Storyboard.cityCellIdentifier, forIndexPath: indexPath) as! CityCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.cityCellIdentifier, for: indexPath) as! CityCell
 
-        let city = self.fetchResultsController.objectAtIndexPath(indexPath) as! FavoriteCities
+        let city = self.fetchResultsController.object(at: indexPath) as! FavoriteCities
         
         cell.configureCell(city)
         
@@ -305,18 +330,18 @@ extension HomeViewController: UICollectionViewDataSource {
 // MARK: - UIViewControllerTransitionDelegate methods
 extension HomeViewController: UIViewControllerTransitioningDelegate {
     
-    func animationControllerForPresentedController(
-        presented: UIViewController,
-        presentingController presenting: UIViewController,
-        sourceController source: UIViewController) ->
+    func animationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController,
+        source: UIViewController) ->
         UIViewControllerAnimatedTransitioning? {
-            transition.originFrame = selectedCell!.superview!.convertRect(selectedCell!.frame, toView: nil)
+            transition.originFrame = selectedCell!.superview!.convert(selectedCell!.frame, to: nil)
             
             transition.presenting = true
             return transition
     }
     
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         transition.presenting = false
         return transition
     }
@@ -325,11 +350,11 @@ extension HomeViewController: UIViewControllerTransitioningDelegate {
 // MARK: - NSFetchedResultsControllerDelegate methods
 extension HomeViewController: NSFetchedResultsControllerDelegate {
     
-    var fetchResultsController: NSFetchedResultsController {
+    var fetchResultsController: NSFetchedResultsController<FavoriteCities> {
         if self._fetchResultsController == nil {
             
-            let fetchRequest = NSFetchRequest()
-            let entity = NSEntityDescription.entityForName(Data.Entity.favoriteCities, inManagedObjectContext: self.context)
+            let fetchRequest = NSFetchRequest<FavoriteCities>()
+            let entity = NSEntityDescription.entity(forEntityName: Data.Entity.favoriteCities, in: self.context)
             fetchRequest.entity = entity
             
             fetchRequest.fetchBatchSize = 20
@@ -358,19 +383,19 @@ extension HomeViewController: NSFetchedResultsControllerDelegate {
     }
     
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
         switch type {
         
-        case .Insert:
+        case .insert:
             print("Insert Event")
-            self.collectionView.insertItemsAtIndexPaths([newIndexPath!])
+            self.collectionView.insertItems(at: [newIndexPath!])
             displayNoFavoriteView()
             
             
-        case .Delete:
+        case .delete:
             print("Delete Event")
-            self.collectionView.deleteItemsAtIndexPaths([indexPath!])
+            self.collectionView.deleteItems(at: [indexPath!])
             displayNoFavoriteView()
             
         default:
@@ -379,7 +404,7 @@ extension HomeViewController: NSFetchedResultsControllerDelegate {
         }
     }
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         print("content changed")
     }
     
@@ -396,10 +421,10 @@ extension HomeViewController: ADBannerViewDelegate {
         // Attempt to load a new banner ad:
         
         if self.bannerView == nil {
-            self.bannerView = ADBannerView(frame: CGRectZero)
+            self.bannerView = ADBannerView(frame: CGRect.zero)
             self.bannerView!.delegate = self
-            let screenRect = UIScreen.mainScreen().bounds
-            self.bannerView!.frame = CGRectMake(0, screenRect.size.height - self.bannerView!.frame.height, screenRect.size.width, self.bannerView!.frame.size.height)
+            let screenRect = UIScreen.main.bounds
+            self.bannerView!.frame = CGRect(x: 0, y: screenRect.size.height - self.bannerView!.frame.height, width: screenRect.size.width, height: self.bannerView!.frame.size.height)
             self.bannerView!.layer.zPosition = 2
         }
     }
@@ -413,17 +438,17 @@ extension HomeViewController: ADBannerViewDelegate {
         self.view.addSubview(self.bannerView!)
     }
     
-    func bannerViewDidLoadAd(banner: ADBannerView!) {
+    func bannerViewDidLoadAd(_ banner: ADBannerView!) {
         print(" --- Banner: Load success --- ")
         self.loadBannerViewSuccess = true
         showBannerView()
     }
     
-    func bannerViewWillLoadAd(banner: ADBannerView!) {
+    func bannerViewWillLoadAd(_ banner: ADBannerView!) {
         print(" --- Banner: Unload --------")
     }
     
-    func bannerView(banner: ADBannerView!, didFailToReceiveAdWithError error: NSError!) {
+    func bannerView(_ banner: ADBannerView!, didFailToReceiveAdWithError error: Error!) {
         print(" --- Banner: Action Failed --- ")
         
         if loadBannerViewSuccess == false {
@@ -431,11 +456,11 @@ extension HomeViewController: ADBannerViewDelegate {
         }
     }
     
-    func bannerViewActionDidFinish(banner: ADBannerView!) {
+    func bannerViewActionDidFinish(_ banner: ADBannerView!) {
         print(" --- Banner: Action Finish --- ")
     }
     
-    func bannerViewActionShouldBegin(banner: ADBannerView!, willLeaveApplication willLeave: Bool) -> Bool {
+    func bannerViewActionShouldBegin(_ banner: ADBannerView!, willLeaveApplication willLeave: Bool) -> Bool {
         return true
     }
     

@@ -19,15 +19,15 @@ class WeatherInfoCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
     // MARK: - Configure all the label with weatherDayInfo
-    func configureCell(day: WeatherDay) {
+    func configureCell(_ day: WeatherDay) {
         self.dayTempLabel.text = day.tempDay
         self.maxTempLabel.text = day.tempMax
         self.minTempLabel.text = day.tempMin

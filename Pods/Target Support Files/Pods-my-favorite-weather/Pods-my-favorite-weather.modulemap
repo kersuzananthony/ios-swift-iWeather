@@ -1,6 +1,0 @@
-framework module Pods_my_favorite_weather {
-  umbrella header "Pods-my-favorite-weather-umbrella.h"
-
-  export *
-  module * { export * }
-}

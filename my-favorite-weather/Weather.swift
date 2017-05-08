@@ -11,16 +11,16 @@ import UIKit
 
 class Weather: NSObject, NSCoding {
     
-    private var _weatherDays: [WeatherDay] = [WeatherDay]()
+    fileprivate var _weatherDays: [WeatherDay] = [WeatherDay]()
     
-    private var _lastUpdate: NSDate?
+    fileprivate var _lastUpdate: Date?
     
     var weatherDays: [WeatherDay]? {
         return self._weatherDays
     }
     
     // MARK: - lastUpdate getter and setter
-    var lastUpdate: NSDate? {
+    var lastUpdate: Date? {
         get {
             return self._lastUpdate
         }
@@ -32,10 +32,10 @@ class Weather: NSObject, NSCoding {
     // MARK: - Computed property which return the lastUpdate string
     var lastUpdateString: String! {
         if let lastUpdate = self._lastUpdate {
-            let formatter = NSDateFormatter()
-            formatter.dateStyle = NSDateFormatterStyle.ShortStyle
-            formatter.timeStyle = NSDateFormatterStyle.ShortStyle
-            return String.localizedStringWithFormat(NSLocalizedString("LAST_UPDATE %@", comment: "last weather update"), formatter.stringFromDate(lastUpdate))   
+            let formatter = DateFormatter()
+            formatter.dateStyle = DateFormatter.Style.short
+            formatter.timeStyle = DateFormatter.Style.short
+            return String.localizedStringWithFormat(NSLocalizedString("LAST_UPDATE %@", comment: "last weather update"), formatter.string(from: lastUpdate))   
         } else {
             return ""
         }
@@ -58,20 +58,20 @@ class Weather: NSObject, NSCoding {
     
     convenience required init?(coder aDecoder: NSCoder) {
         self.init()
-        self._weatherDays = aDecoder.decodeObjectForKey("weatherDays") as! [WeatherDay]
+        self._weatherDays = aDecoder.decodeObject(forKey: "weatherDays") as! [WeatherDay]
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self._weatherDays, forKey: "weatherDays")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self._weatherDays, forKey: "weatherDays")
     }
     
     func getTodayWeather() -> WeatherDay? {
-        let calendar = NSCalendar.currentCalendar()
+        let calendar = Calendar.current
         for weatherDay in self.weatherDays! {
             
             print(weatherDay.timestamp)
             
-            if calendar.compareDate(NSDate(), toDate: weatherDay.timestamp, toUnitGranularity: NSCalendarUnit.Day) == NSComparisonResult.OrderedSame {
+            if (calendar as NSCalendar).compare(Date(), to: weatherDay.timestamp as Date, toUnitGranularity: NSCalendar.Unit.day) == ComparisonResult.orderedSame {
                 return weatherDay
             }
         }

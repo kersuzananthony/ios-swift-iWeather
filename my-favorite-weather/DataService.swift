@@ -10,42 +10,48 @@ import Foundation
 import Alamofire
 import CoreData
 import Firebase
+import FirebaseStorage
 
 class DataService {
     
     static let instance = DataService()
     
-    private let _context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    fileprivate let _context = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
     
     // MARK: - SearchCityController: When the user search for a specific city, we send a request to firebase to get a list of city beginning with the given param
-    func getCitiesByFirebase(parameter: AnyObject?, completed: CityDownloadComplete) {
+    func getCitiesByFirebase(_ parameter: AnyObject?, completed: @escaping CityDownloadComplete) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
         var citiesToReturn: [City] = [City]()
         var numberCitiesToReturn: Int?
-        let ref = Firebase(url:"https://i-weather.firebaseio.com/cities")
         
-        if let info = parameter as? Dictionary<String, String>, param = info["searchText"] {
-            print(param)
-            ref.queryOrderedByChild("name")
-                .queryStartingAtValue(param)
-                .queryLimitedToNumberOfChildren(20)
-                .observeSingleEventOfType(.Value, withBlock: { (snap) -> Void in
+        if let info = parameter as? Dictionary<String, String>, let param = info["searchText"] {
+        
+            let ref: FIRDatabaseReference = FIRDatabase.database().reference().child("cities")
+            
+            ref.queryOrdered(byChild: "name")
+                .queryStarting(atValue: param)
+                .queryEnding(atValue: param + "\u{f8ff}")
+                .queryLimited(toFirst: 20)
+                .observeSingleEvent(of: .value, with: { (snap) in
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     
                     numberCitiesToReturn = Int(snap.childrenCount)
                     
-                    for (index, item) in snap.children.enumerate() {
-                        citiesToReturn.append(City(citySnapShot: item as! FDataSnapshot, paramInfo: info))
+                    for (index, item) in (snap.children.enumerated()) {
+                        citiesToReturn.append(City(citySnapShot: item as! FIRDataSnapshot, paramInfo: info))
                         
                         if index + 1 == numberCitiesToReturn {
                             completed(citiesToReturn)
                         }
                     }
-                    } , withCancelBlock: nil)
+                })
 
         }
     }
     
     // MARK: - Return the weather of a given city
-    func getWeatherForCity(city city: City, needValidWeather: Bool, completed: WeatherDownloadComplete) throws {
+    func getWeatherForCity(city: City, needValidWeather: Bool, completed: @escaping WeatherDownloadComplete) throws {
         // Check if weather can be got from CoreData system
         let doesWeatherDataExist = self.doesWeatherDataExistAndIsItUseful(city: city)
         
@@ -54,15 +60,15 @@ class DataService {
         if (doesWeatherDataExist.exist && doesWeatherDataExist.isValid) || (doesWeatherDataExist.exist && !doesWeatherDataExist.isValid && !needValidWeather) {
             print("load weather data from CD")
             if let weatherData = doesWeatherDataExist.data?.weather {
-                let weatherObject = NSKeyedUnarchiver.unarchiveObjectWithData(weatherData)
+                let weatherObject = NSKeyedUnarchiver.unarchiveObject(with: weatherData)
                 if let weatherObjectToReturn = weatherObject as? Weather {
                     weatherObjectToReturn.lastUpdate = doesWeatherDataExist.data?.timestamp
                     completed(weatherObjectToReturn)
                 } else {
-                    throw WeatherError.CannotGetWeather(message: "Cannot get weather")
+                    throw WeatherError.cannotGetWeather(message: "Cannot get weather")
                 }
             } else {
-                throw WeatherError.CannotGetWeather(message: "Cannot get weather")
+                throw WeatherError.cannotGetWeather(message: "Cannot get weather")
             }
         } else {
             print("load weather data from server")
@@ -71,33 +77,33 @@ class DataService {
                 do {
                     try self.deleteWeatherData(weatherData: weatherData)
                 } catch _ {
-                    throw CoreDataError.CannotDeleteRow(message: "Cannot delete previous data")
+                    throw CoreDataError.cannotDeleteRow(message: "Cannot delete previous data")
                 }
             }
             
             // MARK: - Case: WeatherData has not been retrieved from CoreData and we need to send a request to the server
-            if let id = city.id {
-                Alamofire.request(Method.GET, getWeatherAPIURLForCityId(id: id),
-                    parameters: nil,
-                    encoding: ParameterEncoding.URLEncodedInURL,
-                    headers: nil).responseJSON { response -> Void in
-                        if let dict = response.result.value as? Dictionary<String, AnyObject> {
-                            let weather = Weather(weatherData: dict)
-                            self.saveWeatherDataForCity(city: city, weather: weather)
-                            completed(weather)
-                        } else {
-                            completed(nil)
-                        }
+            let url = getWeatherAPIURLForCityId(id: city.id)
+            
+            Alamofire.request(url,
+                              method: .get,
+                              parameters: nil,
+                              encoding: URLEncoding.default,
+                              headers: nil)
+                .responseJSON { response -> Void in
+                    if let dict = response.result.value as? Dictionary<String, AnyObject> {
+                        let weather = Weather(weatherData: dict)
+                        self.saveWeatherDataForCity(city: city, weather: weather)
+                        completed(weather)
+                    } else {
+                        completed(nil)
                     }
-            } else {
-                throw WeatherError.CannotGetWeather(message: "Cannot get weather")
             }
         }
     }
     
     // MARK: - Function called when the user use geolocation features to get weather info
-    func getWeatherForLocation(lat lat: CGFloat, long: CGFloat, completed: WeatherDownloadCompleteWithLocation) {
-        Alamofire.request(Method.GET, getWeatherAPIURLForCityLocation(long: long, lat: lat)).responseJSON { response in
+    func getWeatherForLocation(lat: CGFloat, long: CGFloat, completed: @escaping WeatherDownloadCompleteWithLocation) {
+        Alamofire.request(getWeatherAPIURLForCityLocation(long: long, lat: lat)).responseJSON { response in
             if let dict = response.result.value as? Dictionary<String, AnyObject> {
                 print("we did it")
                 if let cityInDict = dict["city"] as? Dictionary<String, AnyObject> {
@@ -113,40 +119,40 @@ class DataService {
     
     // MARK: - Check if the city has already been saved in CoreData previously
     // MARK: - If not we can save it
-    func addCityToFavoriteCities(city: City) throws -> Bool {
+    func addCityToFavoriteCities(_ city: City) throws -> Bool {
         
         if !isCityAlreadyFavorite(id: city.id) {
             // Create newFavoriteCity
-            let newFavoriteCity = NSEntityDescription.insertNewObjectForEntityForName(Data.Entity.favoriteCities, inManagedObjectContext: self._context) as! FavoriteCities
+            let newFavoriteCity = NSEntityDescription.insertNewObject(forEntityName: Data.Entity.favoriteCities, into: self._context) as! FavoriteCities
             
             newFavoriteCity.name = city.name
             newFavoriteCity.country = city.country
-            newFavoriteCity.id = NSNumber(integer: city.id)
-            newFavoriteCity.latitude = city.coordinate.lat
-            newFavoriteCity.longitude = city.coordinate.long
-                    
+            newFavoriteCity.id = NSNumber(value: city.id as Int)
+            newFavoriteCity.latitude = city.coordinate.lat! as NSNumber
+            newFavoriteCity.longitude = city.coordinate.long! as NSNumber
+            
             do {
                 try self._context.save()
                 return true
             } catch _ {
-                throw CoreDataError.CannotAddItem(message: "Cannot add the city")
+                throw CoreDataError.cannotAddItem(message: "Cannot add the city")
             }
 
         } else {
-            throw CoreDataError.CannotAddItem(message: "Cannot add the city")
+            throw CoreDataError.cannotAddItem(message: "Cannot add the city")
         }
     }
     
     // MARK: Check if the given city is already stored in the FavoriteCities
-    func isCityAlreadyFavorite(id id: Int) -> Bool {
-        let request = NSFetchRequest(entityName: Data.Entity.favoriteCities)
-        request.resultType = NSFetchRequestResultType.CountResultType
+    func isCityAlreadyFavorite(id: Int) -> Bool {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: Data.Entity.favoriteCities)
+        request.resultType = NSFetchRequestResultType.countResultType
         request.predicate = NSPredicate(format: "id = %d", id)
         
         do {
-            let result = try self._context.executeFetchRequest(request)
+            let result = try self._context.fetch(request)
             
-            if let r = result[0] as? Int where r > 0 {
+            if let r = result[0] as? Int, r > 0 {
                 return true
             } else {
                 return false
@@ -157,97 +163,97 @@ class DataService {
         }
     }
     
-    func getFavoriteCityById(id id: Int) throws -> FavoriteCities {
-        let request = NSFetchRequest(entityName: Data.Entity.favoriteCities)
+    func getFavoriteCityById(id: Int) throws -> FavoriteCities {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: Data.Entity.favoriteCities)
         request.predicate = NSPredicate(format: "id = %d", id)
         request.fetchLimit = 1
         
         do {
-            let results = try self._context.executeFetchRequest(request)
+            let results = try self._context.fetch(request)
             
-            if let results = results as? [NSManagedObject] where results.count > 0, let favCity = results[0] as? FavoriteCities {
+            if let results = results as? [NSManagedObject], results.count > 0, let favCity = results[0] as? FavoriteCities {
                 return favCity
             } else {
-                throw CoreDataError.DataDoNotExist(message: "Cannot get data")
+                throw CoreDataError.dataDoNotExist(message: "Cannot get data")
             }
         } catch _ {
-            throw CoreDataError.DataDoNotExist(message: "Cannot get data")
+            throw CoreDataError.dataDoNotExist(message: "Cannot get data")
         }
 
     }
     
     // MARK: Delete the given city from the CoreData
-    func deleteFavoriteCity(favoriteCity favoriteCity: FavoriteCities) throws  {
+    func deleteFavoriteCity(favoriteCity: FavoriteCities) throws  {
         if self.isCityAlreadyFavorite(id: Int(favoriteCity.id!)) {
             
-            self._context.deleteObject(favoriteCity)
+            self._context.delete(favoriteCity)
             
             do {
                 try self._context.save()
             } catch _ {
-                throw CoreDataError.CannotDeleteRow(message: "Error while deleting data, please retry later!")
+                throw CoreDataError.cannotDeleteRow(message: "Error while deleting data, please retry later!")
             }
         } else {
-            throw CoreDataError.DataDoNotExist(message: "This favorite city does not exist!")
+            throw CoreDataError.dataDoNotExist(message: "This favorite city does not exist!")
         }
     }
     
     // MARK: Delete a given city by its id
-    func deleteFavoriteCityById(id id: Int) throws {
+    func deleteFavoriteCityById(id: Int) throws {
         if self.isCityAlreadyFavorite(id: id) {
-            let request = NSFetchRequest(entityName: Data.Entity.favoriteCities)
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: Data.Entity.favoriteCities)
             request.predicate = NSPredicate(format: "id = %d", id)
             
             do {
-                let favoriteCities = try self._context.executeFetchRequest(request) as! [FavoriteCities]
+                let favoriteCities = try self._context.fetch(request) as! [FavoriteCities]
                 
-                self._context.deleteObject(favoriteCities[0])
+                self._context.delete(favoriteCities[0])
                 
                 try self._context.save()
             } catch _ {
-                throw CoreDataError.DataDoNotExist(message: "This favorite city does not exist")
+                throw CoreDataError.dataDoNotExist(message: "This favorite city does not exist")
             }
         } else {
-            throw CoreDataError.DataDoNotExist(message: "This favorite city does not exist!")
+            throw CoreDataError.dataDoNotExist(message: "This favorite city does not exist!")
         }
     }
     
     // MARK: - Function called after getting weather info with a web request
-    func saveWeatherDataForCity(city city: City, weather: Weather) {
+    func saveWeatherDataForCity(city: City, weather: Weather) {
         print("Save new weather data")
         let cityId = city.id
-        let weatherData = NSKeyedArchiver.archivedDataWithRootObject(weather)
+        let weatherData = NSKeyedArchiver.archivedData(withRootObject: weather)
         
-        let newWeatherData = NSEntityDescription.insertNewObjectForEntityForName(Data.Entity.weatherData, inManagedObjectContext: self._context) as! WeatherData
-        newWeatherData.city = cityId
+        let newWeatherData = NSEntityDescription.insertNewObject(forEntityName: Data.Entity.weatherData, into: self._context) as! WeatherData
+        newWeatherData.city = cityId as! NSNumber
         newWeatherData.weather = weatherData
-        newWeatherData.timestamp = NSDate()
+        newWeatherData.timestamp = Date()
         
         do {
             try self._context.save()
             
-            if let isFavorite = city.isFavorite where isFavorite == true  {
-                NSNotificationCenter.defaultCenter().postNotificationName(NotificationCenter.updatedWeatherInfo, object: city, userInfo: nil)
+            if city.isFavorite == true  {
+                Foundation.NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationCenter.updatedWeatherInfo), object: city, userInfo: nil)
             }
         } catch _ {
-            CoreDataError.CannotAddItem(message: "Cannot save data")
+            CoreDataError.cannotAddItem(message: "Cannot save data")
         }
     }
     
     // MARK: - Function which check if weather of a given city is already stored in CoreData WeatherData Entity
     //       - If there is no data, return dont exist
     //       - If data is too old, return is not valid
-    func doesWeatherDataExistAndIsItUseful(city city: City) -> (exist: Bool, isValid: Bool, data: WeatherData?) {
-        let weatherDataFetchRequest = NSFetchRequest(entityName: Data.Entity.weatherData)
+    func doesWeatherDataExistAndIsItUseful(city: City) -> (exist: Bool, isValid: Bool, data: WeatherData?) {
+        let weatherDataFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Data.Entity.weatherData)
         weatherDataFetchRequest.predicate = NSPredicate(format: "city = %d", city.id)
         weatherDataFetchRequest.fetchLimit = 1
         
         do {
-            let results = try self._context.executeFetchRequest(weatherDataFetchRequest)
+            let results = try self._context.fetch(weatherDataFetchRequest)
             
-            if let results = results as? [NSManagedObject] where results.count > 0, let weatherData = results[0] as? WeatherData {
+            if let results = results as? [NSManagedObject], results.count > 0, let weatherData = results[0] as? WeatherData {
                 
-                if NSDate().timeIntervalSinceDate(weatherData.timestamp!) > NSTimeInterval(WEATHER_DATA_VALID_DURATION) {
+                if Date().timeIntervalSince(weatherData.timestamp! as Date) > TimeInterval(WEATHER_DATA_VALID_DURATION) {
                     // Data exists but is not valid
                     return (true, false, weatherData)
                 } else {
@@ -265,13 +271,13 @@ class DataService {
     }
     
     // MARK: - Delete weatherData when it expires
-    func deleteWeatherData(weatherData weatherData: WeatherData) throws {
-        self._context.deleteObject(weatherData)
+    func deleteWeatherData(weatherData: WeatherData) throws {
+        self._context.delete(weatherData)
         
         do {
             try self._context.save()
         } catch _ {
-            throw CoreDataError.CannotDeleteRow(message: "Cannot delete previous data")
+            throw CoreDataError.cannotDeleteRow(message: "Cannot delete previous data")
         }
     }
     

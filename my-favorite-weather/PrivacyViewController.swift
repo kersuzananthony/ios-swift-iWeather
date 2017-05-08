@@ -13,10 +13,10 @@ class PrivacyViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     
     override func viewDidLayoutSubviews() {
-        self.textView.setContentOffset(CGPointZero, animated: false)
+        self.textView.setContentOffset(CGPoint.zero, animated: false)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     

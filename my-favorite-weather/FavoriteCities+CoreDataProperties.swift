@@ -19,6 +19,6 @@ extension FavoriteCities {
     @NSManaged var country: String?
     @NSManaged var longitude: NSNumber?
     @NSManaged var latitude: NSNumber?
-    @NSManaged var lastWeatherUpdate: NSDate?
+    @NSManaged var lastWeatherUpdate: Date?
 
 }

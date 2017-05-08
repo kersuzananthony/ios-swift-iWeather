@@ -9,19 +9,19 @@
 import Foundation
 import UIKit
 
-func randomInRange(range: Range<Int>) -> Int {
-    let count = UInt32(range.endIndex - range.startIndex)
-    return  Int(arc4random_uniform(count)) + range.startIndex
+func randomInRange(_ range: Range<Int>) -> Int {
+    let count = UInt32(range.upperBound - range.lowerBound)
+    return  Int(arc4random_uniform(count)) + range.lowerBound
 }
 
-public func getWeatherAPIURLForCityId(id id: Int) -> String {
+public func getWeatherAPIURLForCityId(id: Int) -> String {
     return "http://api.openweathermap.org/data/2.5/forecast/daily?id=\(id)&appid=\(openWeatherAPIKey)&cnt=7"
 }
 
-public func getWeatherAPIURLForCityLocation(long long: CGFloat, lat: CGFloat) -> String {
+public func getWeatherAPIURLForCityLocation(long: CGFloat, lat: CGFloat) -> String {
     return "http://api.openweathermap.org/data/2.5/forecast/daily?lat=\(lat)&lon=\(long)&appid=\(openWeatherAPIKey)&cnt=7"
 }
 
-public func blueColorAlpha(alpha alpha: CGFloat) -> UIColor {
+public func blueColorAlpha(alpha: CGFloat) -> UIColor {
     return UIColor(red: 98 / 255, green: 181 / 255, blue: 255 / 255, alpha: alpha)
 }
