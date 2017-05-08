@@ -150,6 +150,8 @@ extension SearchCityViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCity: City = self.results[indexPath.row]
         self.performSegue(withIdentifier: Storyboard.Segue.viewWeatherDetailForCitySearched, sender: selectedCity)
+        
+        self.tableView.deselectRow(at: indexPath, animated: false)
     }
 }
 
