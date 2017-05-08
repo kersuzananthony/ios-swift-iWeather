@@ -75,8 +75,10 @@ class Weather: NSObject, NSCoding {
                 return weatherDay
             }
         }
+        
+        let count = (self.weatherDays?.count ?? 0) - 1
     
-        return self.weatherDays![self.weatherDays!.count - 1]
+        return count > -1 ? self.weatherDays?[count] : nil
     }
     
 }

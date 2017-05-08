@@ -319,7 +319,7 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.cityCellIdentifier, for: indexPath) as! CityCell
 
-        let city = self.fetchResultsController.object(at: indexPath) as! FavoriteCities
+        let city = self.fetchResultsController.object(at: indexPath)
         
         cell.configureCell(city)
         

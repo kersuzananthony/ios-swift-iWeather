@@ -9,13 +9,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "my-favorite-weather/City.swift"
-            timestampString = "515935554.190941"
+            filePath = "my-favorite-weather/DataService.swift"
+            timestampString = "515937289.574504"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
-            landmarkName = "init(citySnapShot:paramInfo:)"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "getWeatherForLocation(lat:long:completed:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "my-favorite-weather/DataService.swift"
+            timestampString = "515937296.888641"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "getWeatherForLocation(lat:long:completed:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
