@@ -437,7 +437,7 @@
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = M4YY2LX9P9;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					DC9129471C27A1A2009E379B = {
 						CreatedOnToolsVersion = 7.2;
@@ -762,15 +762,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Anthony Kersuzan (M4YY2LX9P9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = M4YY2LX9P9;
 				INFOPLIST_FILE = "my-favorite-weather/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kersuzan.i-weather";
 				PRODUCT_NAME = iWeather;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "0577fe04-44e9-43af-8961-572a0068cadf";
+				PROVISIONING_PROFILE_SPECIFIER = iWeather_dist;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -781,15 +781,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Anthony Kersuzan (M4YY2LX9P9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = M4YY2LX9P9;
 				INFOPLIST_FILE = "my-favorite-weather/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kersuzan.i-weather";
 				PRODUCT_NAME = iWeather;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "0577fe04-44e9-43af-8961-572a0068cadf";
+				PROVISIONING_PROFILE_SPECIFIER = iWeather_dist;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
